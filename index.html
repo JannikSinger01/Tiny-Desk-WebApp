@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KI in der Geschichtswissenschaft | Präsentation</title>
+    <!-- GSAP & Plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #000000;
+            --border: #eeeeee;
+        }
+
+        * { box-sizing: border-box; }
+
+        body { 
+            margin: 0; 
+            background: var(--bg); 
+            font-family: 'Times New Roman', Times, serif; 
+            color: var(--text);
+            overflow-x: hidden;
+            overflow-y: hidden; /* Aktivierung nach Intro */
+        }
+
+        h1, h2, h3 { font-weight: normal; margin: 0; }
+        p { line-height: 1.8; font-size: 1.2rem; }
+
+        /* --- Intro Overlay --- */
+        #intro-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .stage {
+            position: relative;
+            width: 100%;
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .counter { 
+            font-size: clamp(3rem, 10vw, 5rem); 
+            position: absolute;
+            white-space: nowrap;
+        }
+
+        #next-question { transform: translateX(100vw); }
+
+        .title-intro { 
+            font-size: clamp(1.2rem, 3vw, 2rem); 
+            position: absolute; 
+            opacity: 0; 
+            max-width: 800px;
+            text-align: center;
+            padding: 0 20px;
+            transform: translateY(30px);
+        }
+
+        /* --- Horizontale Sektionen (Kapitel 1 & 2) --- */
+        section.horizontal-section {
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .horizontal-wrapper {
+            display: flex;
+            width: 500%; 
+            height: 100vh;
+            will-change: transform;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px;
+            text-align: center;
+            border-right: 1px solid var(--border);
+        }
+
+        .slide-meta {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 20px;
+            opacity: 0.6;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            max-width: 600px;
+            height: 350px;
+            background: #fafafa;
+            border: 1px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            margin-top: 30px;
+        }
+
+        /* --- Kapitel 3: Story-Scroller (Vertikal) --- */
+        #part-3 {
+            position: relative;
+            background: var(--bg);
+        }
+
+        .story-header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
+        }
+
+        .story-container {
+            display: flex;
+            position: relative;
+        }
+
+        .story-visuals {
+            flex: 1;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+        }
+
+        .sticky-image-box {
+            width: 100%;
+            height: 80%;
+            background: #fdfdfd;
+            border: 1px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-style: italic;
+            position: relative;
+            transition: opacity 0.5s ease;
+        }
+
+        .story-content {
+            flex: 1;
+            padding: 0 5%;
+        }
+
+        .story-step {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px 0;
+            opacity: 0.3;
+            transition: opacity 0.5s ease;
+        }
+
+        .story-step.active {
+            opacity: 1;
+        }
+
+        .code-snippet {
+            font-family: monospace;
+            background: #f4f4f4;
+            padding: 20px;
+            border-left: 3px solid #000;
+            margin: 20px 0;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+        }
+
+        /* --- Navigationshilfe --- */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            opacity: 0.4;
+            z-index: 50;
+        }
+
+        hr { width: 50px; border: 0; border-top: 1px solid #000; margin: 20px 0; }
+        
+        button.start-btn {
+            margin-top: 40px;
+            background: transparent;
+            border: 1px solid #000;
+            padding: 12px 40px;
+            cursor: pointer;
+            font-family: 'Times New Roman';
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        button.start-btn:hover { background: #000; color: #fff; }
+    </style>
+</head>
+<body>
+
+    <div id="intro-overlay">
+        <div class="stage">
+            <div id="year-display" class="counter">3000 v.Chr.</div>
+            <div id="next-question" class="counter">Und weiter?</div>
+        </div>
+        <h1 class="title-intro">KI in der Geschichtswissenschaft:<br>Zwischen Heuristik und Hermeneutik</h1>
+    </div>
+
+    <div class="scroll-indicator">Scrollen</div>
+
+    <main id="main-content">
+        
+        <!-- KAPITEL 1: 5 SLIDES NACH RECHTS -->
+        <section id="c1-trigger" class="horizontal-section">
+            <div class="horizontal-wrapper" id="c1-wrapper">
+                <div class="slide">
+                    <span class="slide-meta">Kapitel I: Forschungserfolge</span>
+                    <h2>Der Täter im Fokus</h2>
+                    <hr>
+                    <p>Fallstudie "Der letzte Jude von Winniza" – Biometrie in der Zeitgeschichte.</p>
+                    <div class="image-placeholder">[Bild: Winniza Originalquelle]</div>
+                </div>
+                <div class="slide">
+                    <span class="slide-meta">Kapitel I: Forschungserfolge</span>
+                    <h2>Algorithmische Analyse</h2>
+                    <hr>
+                    <p>Wie Deep Learning Merkmale extrahiert, die dem menschlichen Auge entgehen.</p>
+                    <div class="image-placeholder">[Bild: Analyse-Verfahren]</div>
+                </div>
+                <div class="slide">
+                    <span class="slide-meta">Kapitel I: Forschungserfolge</span>
+                    <h2>Datenabgleich</h2>
+                    <hr>
+                    <p>Automatisierte Suche in digitalen Beständen der SS-Personalakten.</p>
+                    <div class="image-placeholder">[Bild: Datenbank-Struktur]</div>
+                </div>
+                <div class="slide">
+                    <span class="slide-meta">Kapitel I: Forschungserfolge</span>
+                    <h2>Beweiskraft</h2>
+                    <hr>
+                    <p>Statistische Signifikanz als Ergänzung zur klassischen Indizienkette.</p>
+                    <div class="image-placeholder">[Bild: Evidenz-Grafik]</div>
+                </div>
+                <div class="slide">
+                    <span class="slide-meta">Kapitel I: Forschungserfolge</span>
+                    <h2>Ergebnis</h2>
+                    <hr>
+                    <p>Die erfolgreiche Identifikation und deren Bedeutung für die Historiographie.</p>
+                    <div class="image-placeholder">[Bild: Abschluss Kapitel 1]</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KAPITEL 2: 5 SLIDES NACH LINKS -->
+        <section id="c2-trigger" class="horizontal-section">
+            <div class="horizontal-wrapper" id="c2-wrapper">
+                <div class="slide">
+                    <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                    <h2>Die algorithmische Blackbox</h2>
+                    <hr>
+                    <p>Gefahren der Intransparenz in computergestützten Verfahren.</p>
+                    <div class="image-placeholder">[Bild: Blackbox-Symbolik]</div>
+                </div>
+                <div class="slide">
+                    <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                    <h2>Digitale Halluzinationen</h2>
+                    <hr>
+                    <p>Wenn LLMs Lücken in der Überlieferung mit plausibler Fiktion füllen.</p>
+                    <div class="image-placeholder">[Bild: Halluzinations-Beispiel]</div>
+                </div>
+                <div class="slide">
+                    <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                    <h2>Struktureller Bias</h2>
+                    <hr>
+                    <p>Verzerrungen durch ungleiche Digitalisierungsraten und Trainingsdaten.</p>
+                    <div class="image-placeholder">[Bild: Bias-Visualisierung]</div>
+                </div>
+                <div class="slide">
+                    <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                    <h2>Methodenkritik</h2>
+                    <hr>
+                    <p>Warum Statistik kein Ersatz für historisches Verstehen (Hermeneutik) ist.</p>
+                    <div class="image-placeholder">[Bild: Kritik-Grafik]</div>
+                </div>
+                <div class="slide">
+                    <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                    <h2>Hermeneutik 2.0</h2>
+                    <hr>
+                    <p>Entwurf einer kritischen digitalen Quellenkunde für das 21. Jahrhundert.</p>
+                    <div class="image-placeholder">[Bild: Abschluss Kapitel 2]</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KAPITEL 3: STORY-SCROLLER (VERTIKAL) -->
+        <section id="part-3">
+            <div class="story-header">
+                <span class="slide-meta">Kapitel III: Vibe-Coding</span>
+                <h2>Genese dieser Applikation</h2>
+                <hr>
+                <p>Ein Werkstattbericht über die Erstellung dieser interaktiven Präsentation.</p>
+            </div>
+
+            <div class="story-container">
+                <!-- Linke Seite: Sticky Visuals -->
+                <div class="story-visuals">
+                    <div class="sticky-image-box" id="story-image">
+                        [Screenshot: Erster Prompt]
+                    </div>
+                </div>
+
+                <!-- Rechte Seite: Scrolling Content -->
+                <div class="story-content">
+                    <div class="story-step" data-image="[Screenshot: Der erste Vibe]">
+                        <h3>1. Die Vision / Der Vibe</h3>
+                        <hr>
+                        <p>Alles begann mit einer groben Skizze: Eine WebApp, die sich wie ein wissenschaftliches Dossier anfühlt, aber die Dynamik moderner Algorithmen nutzt.</p>
+                        <div class="code-snippet">
+User: "Erstelle eine WebApp für einen Historiker-Vortrag. Minimalistisch, Times New Roman, GSAP Animationen..."
+                        </div>
+                        <p>Vibe-Coding bedeutet hier, die ästhetische und funktionale Richtung vorzugeben, während die KI die syntaktische Schwerstarbeit übernimmt.</p>
+                    </div>
+
+                    <div class="story-step" data-image="[Screenshot: Debugging-Prozess]">
+                        <h3>2. Iteratives Design</h3>
+                        <hr>
+                        <p>Wissenschaftliche Arbeit ist Iteration. Das galt auch für den Code. Das horizontale Scrollen in Kapitel 2 musste mehrfach angepasst werden, um den inhaltlichen Kontrast ("Gegenbewegung") zu Kapitel 1 abzubilden.</p>
+                        <p>Durch direktes Feedback an die KI konnten Design-Entscheidungen (wie die Bildplatzhalter und Abstände) in Sekunden umgesetzt werden.</p>
+                    </div>
+
+                    <div class="story-step" data-image="[Screenshot: GSAP Integration]">
+                        <h3>3. Die Technik hinter den Kulissen</h3>
+                        <hr>
+                        <p>Die Nutzung von GSAP ScrollTrigger ermöglicht es uns, die Aufmerksamkeit des Publikums gezielt zu steuern. In diesem "Story-Scroller" wird das Bild erst gewechselt, wenn der Text gelesen wird.</p>
+                        <p>Dies simuliert den Prozess der Quellenarbeit: Ein Blick auf das Dokument (Bild), gefolgt von der Analyse (Text).</p>
+                    </div>
+
+                    <div class="story-step" data-image="[Screenshot: Finale App]">
+                        <h3>4. Das Ergebnis als Artefakt</h3>
+                        <hr>
+                        <p>Diese Applikation ist nicht nur ein Präsentationsmedium, sondern selbst ein Beispiel für die im Seminar besprochenen Erfolge: Sie zeigt, wie Geisteswissenschaftler sich Technik aneignen können, um ihre Forschung neu zu präsentieren.</p>
+                        <button class="start-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">Zurück zum Start</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        window.onload = () => {
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    document.body.style.overflowY = "auto";
+                    initScrollAnimations();
+                }
+            });
+
+            const yearDisplay = document.getElementById("year-display");
+            let countData = { val: -3000 };
+
+            // Intro Animation
+            tl.to(countData, {
+                val: 2026,
+                duration: 2.5,
+                ease: "power2.inOut",
+                onUpdate: () => {
+                    const currentYear = Math.floor(countData.val);
+                    yearDisplay.innerText = currentYear < 0 ? Math.abs(currentYear) + " v.Chr." : currentYear + " n.Chr.";
+                }
+            });
+
+            tl.to("#year-display", { x: "-100vw", duration: 0.8, ease: "power2.inOut", delay: 0.5 })
+              .to("#next-question", { x: "0", duration: 0.8, ease: "power2.inOut" }, "<");
+            
+            tl.to("#next-question", { opacity: 0, duration: 0.5, delay: 0.5 });
+            tl.to(".title-intro", { opacity: 1, y: 0, duration: 1 });
+            
+            tl.to("#intro-overlay", {
+                yPercent: -100,
+                duration: 1.2,
+                ease: "expo.inOut",
+                delay: 1.5 
+            });
+        };
+
+        function initScrollAnimations() {
+            // KAPITEL 1: Slides nach LINKS (vorwärts)
+            const c1Wrapper = document.getElementById("c1-wrapper");
+            gsap.to(c1Wrapper, {
+                xPercent: -80,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#c1-trigger",
+                    pin: true,
+                    scrub: 1,
+                    snap: 1 / 4,
+                    start: "top top",
+                    end: () => "+=" + (window.innerWidth * 4)
+                }
+            });
+
+            // KAPITEL 2: Slides von LINKS kommend (entgegengesetzt)
+            const c2Wrapper = document.getElementById("c2-wrapper");
+            gsap.fromTo(c2Wrapper, 
+                { xPercent: -80 }, 
+                {
+                    xPercent: 0, 
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: "#c2-trigger",
+                        pin: true,
+                        scrub: 1,
+                        snap: 1 / 4,
+                        start: "top top",
+                        end: () => "+=" + (window.innerWidth * 4)
+                    }
+                }
+            );
+
+            // KAPITEL 3: Story-Scroller Logik
+            const steps = gsap.utils.toArray(".story-step");
+            const imageBox = document.getElementById("story-image");
+
+            steps.forEach((step, i) => {
+                ScrollTrigger.create({
+                    trigger: step,
+                    start: "top center",
+                    end: "bottom center",
+                    onToggle: (self) => {
+                        if (self.isActive) {
+                            // Text hervorheben
+                            steps.forEach(s => s.classList.remove("active"));
+                            step.classList.add("active");
+                            
+                            // Bild mit sanftem Fade ändern
+                            const newImageText = step.getAttribute("data-image");
+                            gsap.to(imageBox, {
+                                opacity: 0,
+                                duration: 0.3,
+                                onComplete: () => {
+                                    imageBox.innerText = newImageText;
+                                    gsap.to(imageBox, { opacity: 1, duration: 0.3 });
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
