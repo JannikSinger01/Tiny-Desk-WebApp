@@ -23,6 +23,7 @@
             color: var(--text);
             overflow-x: hidden;
             overflow-y: hidden; /* Aktivierung nach Intro */
+            cursor: pointer; 
         }
 
         h1, h2, h3 { font-weight: normal; margin: 0; }
@@ -323,14 +324,12 @@
             </div>
 
             <div class="story-container">
-                <!-- Linke Seite: Sticky Visuals -->
                 <div class="story-visuals">
                     <div class="sticky-image-box" id="story-image">
                         [Screenshot: Erster Prompt]
                     </div>
                 </div>
 
-                <!-- Rechte Seite: Scrolling Content -->
                 <div class="story-content">
                     <div class="story-step" data-image="[Screenshot: Der erste Vibe]">
                         <h3>1. Die Vision / Der Vibe</h3>
@@ -371,10 +370,15 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag. Minimalistisch, Times
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
+        let introTimeline;
+        let isIntroFinished = false;
+
         window.onload = () => {
-            const tl = gsap.timeline({
+            introTimeline = gsap.timeline({
                 onComplete: () => {
+                    isIntroFinished = true;
                     document.body.style.overflowY = "auto";
+                    document.body.style.cursor = "default";
                     initScrollAnimations();
                 }
             });
@@ -382,10 +386,10 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag. Minimalistisch, Times
             const yearDisplay = document.getElementById("year-display");
             let countData = { val: -3000 };
 
-            // Intro Animation
-            tl.to(countData, {
+            // Intro Animation Sequenz
+            introTimeline.to(countData, {
                 val: 2026,
-                duration: 2.5,
+                duration: 4.5, 
                 ease: "power2.inOut",
                 onUpdate: () => {
                     const currentYear = Math.floor(countData.val);
@@ -393,17 +397,28 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag. Minimalistisch, Times
                 }
             });
 
-            tl.to("#year-display", { x: "-100vw", duration: 0.8, ease: "power2.inOut", delay: 0.5 })
-              .to("#next-question", { x: "0", duration: 0.8, ease: "power2.inOut" }, "<");
+            introTimeline.to("#year-display", { x: "-100vw", duration: 0.8, ease: "power2.inOut", delay: 0.5 })
+                         .to("#next-question", { x: "0", duration: 0.8, ease: "power2.inOut" }, "<");
             
-            tl.to("#next-question", { opacity: 0, duration: 0.5, delay: 0.5 });
-            tl.to(".title-intro", { opacity: 1, y: 0, duration: 1 });
+            introTimeline.to("#next-question", { opacity: 0, duration: 0.5, delay: 0.5 });
+            introTimeline.to(".title-intro", { opacity: 1, y: 0, duration: 1 });
             
-            tl.to("#intro-overlay", {
+            introTimeline.to("#intro-overlay", {
                 yPercent: -100,
                 duration: 1.2,
                 ease: "expo.inOut",
                 delay: 1.5 
+            });
+
+            // Click-to-Pause Logik (Funktion bleibt ohne visuellen Hinweis aktiv)
+            window.addEventListener('click', () => {
+                if (!isIntroFinished && introTimeline) {
+                    if (introTimeline.paused()) {
+                        introTimeline.play();
+                    } else {
+                        introTimeline.pause();
+                    }
+                }
             });
         };
 
@@ -452,11 +467,9 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag. Minimalistisch, Times
                     end: "bottom center",
                     onToggle: (self) => {
                         if (self.isActive) {
-                            // Text hervorheben
                             steps.forEach(s => s.classList.remove("active"));
                             step.classList.add("active");
                             
-                            // Bild mit sanftem Fade ändern
                             const newImageText = step.getAttribute("data-image");
                             gsap.to(imageBox, {
                                 opacity: 0,
