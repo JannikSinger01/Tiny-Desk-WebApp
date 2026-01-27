@@ -122,7 +122,7 @@
             flex-direction: column;
             justify-content: flex-start;
             position: relative;
-            height: 100%; /* Ermöglicht Positionierung am Boden */
+            height: 100%;
         }
 
         .image-container {
@@ -145,18 +145,18 @@
         .text-side h2 {
             font-size: 2.2rem;
             line-height: 1.1;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
-        .text-side p {
-            margin-bottom: 15px;
+        .text-side h2 span.subtitle {
+            display: block;
+            font-size: 1.3rem;
+            margin-top: 8px;
             color: var(--accent);
         }
 
         .presentation-notes {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px dotted #ccc;
+            margin-top: 20px;
         }
 
         .presentation-notes ul {
@@ -168,9 +168,9 @@
         .presentation-notes li {
             position: relative;
             padding-left: 25px;
-            margin-bottom: 12px;
-            font-size: 1.05rem;
-            line-height: 1.4;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.5;
             color: var(--text);
         }
 
@@ -182,9 +182,9 @@
             font-weight: bold;
         }
 
-        /* --- Subtiler Button außerhalb des Bildes --- */
+        /* --- Buttons & Modals --- */
         .btn-deep-dive {
-            margin-top: auto; /* Schiebt Button nach unten innerhalb der flexbox image-side */
+            margin-top: auto; 
             margin-bottom: 40px;
             background: transparent;
             color: var(--accent);
@@ -197,10 +197,9 @@
             cursor: pointer;
             transition: all 0.3s ease;
             width: fit-content;
-            align-self: flex-start; /* Standard: links (Kapitel 1) */
+            align-self: flex-start;
         }
 
-        /* In Kapitel 2 (rev) wird image-side rechts sein, dort soll der Button auch rechtsbündig stehen */
         .slide-content.rev .btn-deep-dive {
             align-self: flex-end;
         }
@@ -211,7 +210,6 @@
             background: #fdfdfd;
         }
 
-        /* --- Modal System --- */
         #modal-overlay {
             position: fixed;
             top: 0; left: 0;
@@ -385,15 +383,12 @@
 </head>
 <body>
 
-    <!-- Modal für vertiefende Informationen -->
     <div id="modal-overlay">
         <div class="modal-container">
             <button class="modal-close" id="close-modal">&times;</button>
             <div class="modal-body">
                 <h3 id="modal-title">Titel der Vertiefung</h3>
-                <div id="modal-content" class="deep-content">
-                    Hier erscheinen die detaillierten Informationen...
-                </div>
+                <div id="modal-content" class="deep-content"></div>
             </div>
         </div>
     </div>
@@ -410,7 +405,7 @@
 
     <main id="main-content">
         
-        <!-- KAPITEL 1: Bild LINKS, Text RECHTS -->
+        <!-- KAPITEL 1 -->
         <section id="c1-trigger" class="horizontal-section">
             <div class="horizontal-wrapper" id="c1-wrapper">
                 
@@ -428,14 +423,14 @@
                                 data-content="Die biometrische Analyse stützt sich auf über 40 Messpunkte im Gesichtsbereich. Im Fall Winniza wurden insbesondere die Ohr-Morphologie und der Augenabstand mit den Personalstammblättern der SS abgeglichen. Dieser Prozess erforderte eine digitale Rauschunterdrückung des historischen Materials, um Artefakte der analogen Entwicklung von echten Gesichtsmerkmalen zu unterscheiden. Wissenschaftlich relevant ist hier die Verschiebung von einer subjektiven Ähnlichkeitsprüfung hin zu einer statistisch validierbaren Identitätsprüfung.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <h2>Der Täter im Fokus</h2>
-                            <p>Fallstudie "Der letzte Jude von Winniza" – Biometrie in der Zeitgeschichte.</p>
+                            <h2>"Der letzte Jude von Winniza"<br><span class="subtitle">eine Rekonstruktion</span></h2>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Kontext: Analyse eines ikonischen Fotos der Shoah zur Täteridentifikation.</li>
-                                    <li>Problemstellung: Identität des Täters blieb über Jahrzehnte spekulativ.</li>
-                                    <li>Ansatz: Digitale Gesichtsvermessung und Vergleich mit Täterdatenbanken.</li>
+                                    <li>eine der bekannstesten Bildikonen des Holocausts (datiert zwischen 1941-1943)</li>
+                                    <li>Bild in Berdytschiw entstanden, nicht in Winniza</li>
+                                    <li>Momentaufnahme vor einem Mord an einen unbekannten Juden in der Ukraine</li>
+                                    <li>Täter wurde 2025 von Jürgen Matthäus identifiziert - u.a. mithilfe von KI</li>
                                 </ul>
                             </div>
                         </div>
@@ -457,12 +452,12 @@
                         </div>
                         <div class="text-side">
                             <h2>Algorithmische Analyse</h2>
-                            <p>Extraktion feinster Merkmale mittels Deep Learning Verfahren.</p>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
                                     <li>Einsatz von CNNs zur Identifikation biometrischer Konstanten.</li>
                                     <li>Analyse von Merkmalen, die dem menschlichen Auge entgehen.</li>
+                                    <li>Verarbeitung von historischem Rauschen und Bildfehlern.</li>
                                 </ul>
                             </div>
                         </div>
@@ -478,16 +473,16 @@
                                 <div class="image-box">[Bild: Datenbank-Struktur]</div>
                             </div>
                             <div class="image-caption">Abb. 3: Datenbankabfrage. Quelle: ITS Arolsen.</div>
-                            <button class="btn-deep-dive" data-title="Archiv-Digitalisierung & Big Data" data-content="Die Integration der Bestände des International Tracing Service (ITS) markiert eine Zäsur. Metadata-Harvesting und automatisierte Volltextsuche erlauben eine Aggregation von Indizien in nahezu Echtzeit.">weitere Informationen</button>
+                            <button class="btn-deep-dive" data-title="Archiv-Digitalisierung & Big Data" data-content="Die integration der Bestände des International Tracing Service (ITS) markiert eine Zäsur. Metadata-Harvesting und automatisierte Volltextsuche erlauben eine Aggregation von Indizien in nahezu Echtzeit.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
                             <h2>Datenabgleich</h2>
                             <hr>
-                            <p>Automatisierte Suche in digitalen Beständen der Personalakten.</p>
                             <div class="presentation-notes">
                                 <ul>
                                     <li>Massendatenverarbeitung von Millionen digitalisierter Karteikarten.</li>
                                     <li>Cross-Referencing: Verknüpfung von Bilddaten mit Schriftquellen.</li>
+                                    <li>Zusammenführung disparater Archivbestände.</li>
                                 </ul>
                             </div>
                         </div>
@@ -506,12 +501,12 @@
                         </div>
                         <div class="text-side">
                             <h2>Beweiskraft</h2>
-                            <p>Statistische Signifikanz als neue Evidenz.</p>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
                                     <li>Statistische Wahrscheinlichkeit als Hilfsmittel.</li>
                                     <li>Validierung durch algorithmische Vergleiche.</li>
+                                    <li>Grenzen der mathematischen Beweisführung.</li>
                                 </ul>
                             </div>
                         </div>
@@ -530,12 +525,12 @@
                         </div>
                         <div class="text-side">
                             <h2>Ergebnis</h2>
-                            <p>Die erfolgreiche Identifikation und deren Bedeutung.</p>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
                                     <li>Schließung historischer Lücken.</li>
                                     <li>Potenzial für zukünftige Forschungen.</li>
+                                    <li>Konsequenzen für die Täterforschung.</li>
                                 </ul>
                             </div>
                         </div>
@@ -545,7 +540,7 @@
             </div>
         </section>
 
-        <!-- KAPITEL 2: Text LINKS, Bild RECHTS -->
+        <!-- KAPITEL 2 -->
         <section id="c2-trigger" class="horizontal-section">
             <div class="horizontal-wrapper" id="c2-wrapper">
                 
@@ -562,12 +557,12 @@
                         </div>
                         <div class="text-side">
                             <h2>Die algorithmische Blackbox</h2>
-                            <p>Gefahren der Intransparenz in computergestützten Verfahren.</p>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
                                     <li>Problem: Wie kommen Algorithmen zu ihren Schlüssen?</li>
                                     <li>Mangelnde Nachvollziehbarkeit widerspricht wissenschaftlichen Standards.</li>
+                                    <li>Forderung nach "Explainable AI" in der Historie.</li>
                                 </ul>
                             </div>
                         </div>
@@ -587,11 +582,11 @@
                         </div>
                         <div class="text-side">
                             <h2>Digitale Halluzinationen</h2>
-                            <p>Wenn LLMs Lücken in der Überlieferung mit Fiktion füllen.</p>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
                                     <li>Generative KI neigt zur Erfindung plausibel klingender Fakten.</li>
+                                    <li>Gefahr von "Fake Citations" in Publikationen.</li>
                                     <li>Notwendigkeit massiver Fact-Checking-Infrastrukturen.</li>
                                 </ul>
                             </div>
@@ -607,16 +602,16 @@
                             <div class="image-container">
                                 <div class="image-box">[Bias]</div>
                             </div>
-                            <button class="btn-deep-dive" data-title="Postkoloniale Digitale Kritik" data-content="Die Dominanz westlicher Archive im Netz führt dazu, dass KI-Modelle eine eurozentrische Sicht auf die Weltgeschichte einnehmen.">weitere Informationen</button>
+                            <button class="btn-deep-dive" data-title="Postkoloniale Digitale Kritik" data-content="Die dominance westlicher Archive im Netz führt dazu, dass KI-Modelle eine eurozentrische Sicht auf die Weltgeschichte einnehmen.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
                             <h2>Struktureller Bias</h2>
-                            <p>Verzerrungen durch ungleiche Datenlagen.</p>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
                                     <li>"Digital Divide" in der Überlieferung.</li>
-                                    <li>Bias in Trainingsdaten.</li>
+                                    <li>Bias in Trainingsdaten verstärkt Vorurteile.</li>
+                                    <li>Herausforderung: Diversität in der digitalen Heuristik.</li>
                                 </ul>
                             </div>
                         </div>
@@ -635,12 +630,12 @@
                         </div>
                         <div class="text-side">
                             <h2>Methodenkritik</h2>
-                            <p>Warum Statistik kein Ersatz für Verstehen ist.</p>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
                                     <li>Mustererkennung vs. Kontextanalyse.</li>
-                                    <li>Grenzen des rein Quantitativen.</li>
+                                    <li>Grenzen des rein Quantitativen in der Hermeneutik.</li>
+                                    <li>Gefahr des technischen Reduktionismus.</li>
                                 </ul>
                             </div>
                         </div>
@@ -659,12 +654,12 @@
                         </div>
                         <div class="text-side">
                             <h2>Hermeneutik 2.0</h2>
-                            <p>Entwurf einer kritischen digitalen Quellenkunde.</p>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Hybride Forschungsmethodik.</li>
-                                    <li>Quellenkritik im Zeitalter der KI.</li>
+                                    <li>Hybride Forschungsmethodik (Man + Machine).</li>
+                                    <li>Quellenkritik im Zeitalter der KI-Manipulation.</li>
+                                    <li>Entwicklung neuer digitaler Standards.</li>
                                 </ul>
                             </div>
                         </div>
@@ -674,7 +669,7 @@
             </div>
         </section>
 
-        <!-- KAPITEL 3: STORY-SCROLLER -->
+        <!-- KAPITEL 3 -->
         <section id="part-3">
             <div class="story-header">
                 <span class="slide-meta">Kapitel III: Vibe-Coding</span>
@@ -731,7 +726,6 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag..."
         let introTimeline;
         let isIntroFinished = false;
 
-        // Modal Logik
         const modalOverlay = document.getElementById('modal-overlay');
         const modalTitle = document.getElementById('modal-title');
         const modalContent = document.getElementById('modal-content');
@@ -756,7 +750,6 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag..."
             });
         }
 
-        // Event Listener für Buttons
         document.querySelectorAll('.btn-deep-dive').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -857,11 +850,11 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag..."
 
                             gsap.to([imageBox, captionBox], {
                                 opacity: 0,
-                                duration: 0.3,
+                                duration: 0.2,
                                 onComplete: () => {
                                     imageBox.innerText = newImageText;
                                     captionBox.innerText = newCaptionText;
-                                    gsap.to([imageBox, captionBox], { opacity: 1, duration: 0.3 });
+                                    gsap.to([imageBox, captionBox], { opacity: 1, duration: 0.2 });
                                 }
                             });
                         }
