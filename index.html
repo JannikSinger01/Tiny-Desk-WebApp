@@ -14,6 +14,7 @@
             --border: #eeeeee;
             --accent: #555555;
             --caption: #777777;
+            --modal-overlay: rgba(255, 255, 255, 0.98);
         }
 
         * { box-sizing: border-box; }
@@ -24,11 +25,11 @@
             font-family: 'Times New Roman', Times, serif; 
             color: var(--text);
             overflow-x: hidden;
-            overflow-y: hidden; /* Aktivierung nach Intro */
+            overflow-y: hidden; 
         }
 
         h1, h2, h3 { font-weight: normal; margin: 0; }
-        p { line-height: 1.6; font-size: 1.1rem; }
+        p { line-height: 1.4; font-size: 1.1rem; }
 
         /* --- Intro Overlay --- */
         #intro-overlay {
@@ -89,10 +90,11 @@
             width: 100vw;
             height: 100vh;
             display: flex;
-            padding: 40px 80px;
+            padding: 60px 80px;
             border-right: 1px solid var(--border);
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
+            position: relative;
         }
 
         .slide-content {
@@ -100,7 +102,9 @@
             width: 100%;
             max-width: 1200px;
             gap: 60px;
-            align-items: center;
+            align-items: flex-start;
+            margin-top: 20px;
+            height: 100%;
         }
 
         .slide-content.rev {
@@ -108,7 +112,7 @@
         }
 
         .text-side {
-            flex: 1;
+            flex: 1.2;
             text-align: left;
         }
 
@@ -116,42 +120,144 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
+            position: relative;
+            height: 100%; /* Ermöglicht Positionierung am Boden */
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
         }
 
         .slide-meta {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 10px;
+            letter-spacing: 0.15em;
+            margin-bottom: 15px;
             display: block;
-            opacity: 0.6;
+            opacity: 0.5;
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
+            width: fit-content;
+        }
+
+        .text-side h2 {
+            font-size: 2.2rem;
+            line-height: 1.1;
+            margin-bottom: 10px;
+        }
+
+        .text-side p {
+            margin-bottom: 15px;
+            color: var(--accent);
         }
 
         .presentation-notes {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dotted #ccc;
         }
 
         .presentation-notes ul {
             list-style: none;
             padding: 0;
+            margin: 0;
         }
 
         .presentation-notes li {
             position: relative;
-            padding-left: 20px;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-            color: var(--accent);
+            padding-left: 25px;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
+            line-height: 1.4;
+            color: var(--text);
         }
 
         .presentation-notes li::before {
-            content: "•";
+            content: "→";
             position: absolute;
             left: 0;
             color: #000;
+            font-weight: bold;
+        }
+
+        /* --- Subtiler Button außerhalb des Bildes --- */
+        .btn-deep-dive {
+            margin-top: auto; /* Schiebt Button nach unten innerhalb der flexbox image-side */
+            margin-bottom: 40px;
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            font-family: inherit;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: fit-content;
+            align-self: flex-start; /* Standard: links (Kapitel 1) */
+        }
+
+        /* In Kapitel 2 (rev) wird image-side rechts sein, dort soll der Button auch rechtsbündig stehen */
+        .slide-content.rev .btn-deep-dive {
+            align-self: flex-end;
+        }
+
+        .btn-deep-dive:hover {
+            border-color: #000;
+            color: #000;
+            background: #fdfdfd;
+        }
+
+        /* --- Modal System --- */
+        #modal-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--modal-overlay);
+            z-index: 2000;
+            display: none;
+            opacity: 0;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .modal-container {
+            max-width: 800px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            background: #fff;
+            border: 1px solid #000;
+            padding: 60px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: transparent;
+            border: none;
+            font-size: 2.5rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-body h3 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+        }
+
+        .modal-body .deep-content {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            text-align: justify;
         }
 
         .image-box {
@@ -168,11 +274,11 @@
         }
 
         .image-caption {
-            margin-top: 12px;
-            font-size: 0.85rem;
+            margin-top: 10px;
+            font-size: 0.8rem;
             color: var(--caption);
             font-style: italic;
-            line-height: 1.4;
+            line-height: 1.3;
         }
 
         /* --- Kapitel 3: Story-Scroller --- */
@@ -262,7 +368,7 @@
             z-index: 50;
         }
 
-        hr { width: 50px; border: 0; border-top: 1px solid #000; margin: 20px 0; }
+        hr { width: 40px; border: 0; border-top: 1px solid #000; margin: 15px 0; }
         
         button.start-btn {
             margin-top: 40px;
@@ -278,6 +384,19 @@
     </style>
 </head>
 <body>
+
+    <!-- Modal für vertiefende Informationen -->
+    <div id="modal-overlay">
+        <div class="modal-container">
+            <button class="modal-close" id="close-modal">&times;</button>
+            <div class="modal-body">
+                <h3 id="modal-title">Titel der Vertiefung</h3>
+                <div id="modal-content" class="deep-content">
+                    Hier erscheinen die detaillierten Informationen...
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div id="intro-overlay">
         <div class="stage">
@@ -299,19 +418,24 @@
                 <div class="slide">
                     <div class="slide-content">
                         <div class="image-side">
-                            <div class="image-box">[Bild: Winniza Originalquelle]</div>
+                            <span class="slide-meta">Kapitel I: Forschungserfolge</span>
+                            <div class="image-container">
+                                <div class="image-box">[Bild: Winniza Originalquelle]</div>
+                            </div>
                             <div class="image-caption">Abb. 1: Originalfotografie aus dem Archiv XY. Quelle: Bundesarchiv, Best. 123.</div>
+                            <button class="btn-deep-dive" 
+                                data-title="Vertiefung: Biometrische Identifikation" 
+                                data-content="Die biometrische Analyse stützt sich auf über 40 Messpunkte im Gesichtsbereich. Im Fall Winniza wurden insbesondere die Ohr-Morphologie und der Augenabstand mit den Personalstammblättern der SS abgeglichen. Dieser Prozess erforderte eine digitale Rauschunterdrückung des historischen Materials, um Artefakte der analogen Entwicklung von echten Gesichtsmerkmalen zu unterscheiden. Wissenschaftlich relevant ist hier die Verschiebung von einer subjektiven Ähnlichkeitsprüfung hin zu einer statistisch validierbaren Identitätsprüfung.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <span class="slide-meta">Kapitel I: Forschungserfolge</span>
                             <h2>Der Täter im Fokus</h2>
-                            <hr>
                             <p>Fallstudie "Der letzte Jude von Winniza" – Biometrie in der Zeitgeschichte.</p>
+                            <hr>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Kontext: Ikonisches Foto der Shoah</li>
-                                    <li>Problemstellung: Identität des Täters lange ungeklärt</li>
-                                    <li>Ansatz: Digitale Gesichtsvermessung</li>
+                                    <li>Kontext: Analyse eines ikonischen Fotos der Shoah zur Täteridentifikation.</li>
+                                    <li>Problemstellung: Identität des Täters blieb über Jahrzehnte spekulativ.</li>
+                                    <li>Ansatz: Digitale Gesichtsvermessung und Vergleich mit Täterdatenbanken.</li>
                                 </ul>
                             </div>
                         </div>
@@ -322,19 +446,23 @@
                 <div class="slide">
                     <div class="slide-content">
                         <div class="image-side">
-                            <div class="image-box">[Bild: Analyse-Verfahren]</div>
-                            <div class="image-caption">Abb. 2: Visualisierung der Feature-Extraction. Quelle: Eigene Darstellung nach Miller (2024).</div>
+                            <span class="slide-meta">Kapitel I: Forschungserfolge</span>
+                            <div class="image-container">
+                                <div class="image-box">[Bild: Analyse-Verfahren]</div>
+                            </div>
+                            <div class="image-caption">Abb. 2: Feature-Extraction. Quelle: Eigene Darstellung.</div>
+                            <button class="btn-deep-dive" 
+                                data-title="Technischer Exkurs: Convolutional Neural Networks" 
+                                data-content="CNNs (Faltungsneuronalnetze) sind darauf spezialisiert, hierarchische Muster in Bildern zu erkennen. In der Geschichtswissenschaft ermöglichen sie es, stilistische Merkmale oder eben biometrische Daten über verschiedene Quellentypen hinweg stabil zu identifizieren. Ein kritischer Punkt bleibt die Frage der Repräsentativität historischer Trainingsdaten.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <span class="slide-meta">Kapitel I: Forschungserfolge</span>
                             <h2>Algorithmische Analyse</h2>
+                            <p>Extraktion feinster Merkmale mittels Deep Learning Verfahren.</p>
                             <hr>
-                            <p>Wie Deep Learning Merkmale extrahiert, die dem menschlichen Auge entgehen.</p>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Einsatz von Convolutional Neural Networks (CNN)</li>
-                                    <li>Vergleich von Ohrformen und Nasenrücken-Proportionen</li>
-                                    <li>Automatisierte Alterungssimulation</li>
+                                    <li>Einsatz von CNNs zur Identifikation biometrischer Konstanten.</li>
+                                    <li>Analyse von Merkmalen, die dem menschlichen Auge entgehen.</li>
                                 </ul>
                             </div>
                         </div>
@@ -345,42 +473,45 @@
                 <div class="slide">
                     <div class="slide-content">
                         <div class="image-side">
-                            <div class="image-box">[Bild: Datenbank-Struktur]</div>
-                            <div class="image-caption">Abb. 3: Schema der Datenbankabfrage. Quelle: ITS Arolsen, Digitale Bestände.</div>
+                            <span class="slide-meta">Kapitel I: Forschungserfolge</span>
+                            <div class="image-container">
+                                <div class="image-box">[Bild: Datenbank-Struktur]</div>
+                            </div>
+                            <div class="image-caption">Abb. 3: Datenbankabfrage. Quelle: ITS Arolsen.</div>
+                            <button class="btn-deep-dive" data-title="Archiv-Digitalisierung & Big Data" data-content="Die Integration der Bestände des International Tracing Service (ITS) markiert eine Zäsur. Metadata-Harvesting und automatisierte Volltextsuche erlauben eine Aggregation von Indizien in nahezu Echtzeit.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <span class="slide-meta">Kapitel I: Forschungserfolge</span>
                             <h2>Datenabgleich</h2>
                             <hr>
-                            <p>Automatisierte Suche in digitalen Beständen der SS-Personalakten.</p>
+                            <p>Automatisierte Suche in digitalen Beständen der Personalakten.</p>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Massendatenverarbeitung (OCR-erfasste Akten)</li>
-                                    <li>Cross-Referencing mit Truppenbewegungen</li>
-                                    <li>Geschwindigkeit: Wochenlange Arbeit in Sekunden</li>
+                                    <li>Massendatenverarbeitung von Millionen digitalisierter Karteikarten.</li>
+                                    <li>Cross-Referencing: Verknüpfung von Bilddaten mit Schriftquellen.</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Slide 1.4 -->
                 <div class="slide">
                     <div class="slide-content">
                         <div class="image-side">
-                            <div class="image-box">[Bild: Evidenz-Grafik]</div>
-                            <div class="image-caption">Abb. 4: Wahrscheinlichkeitsverteilung der Treffer. Quelle: Journal of Digital History, Vol. 12.</div>
+                            <span class="slide-meta">Kapitel I: Forschungserfolge</span>
+                            <div class="image-container">
+                                <div class="image-box">[Beweiskraft]</div>
+                            </div>
+                            <button class="btn-deep-dive" data-title="Statistische Evidenz vs. Hermeneutik" data-content="Historische Beweiskraft beruhte traditionell auf der Plausibilität der Erzählung. KI führt nun die 'wahrscheinlichste Deutung' als mathematischen Wert ein, was eine Neudefinition des 'historischen Fakts' erfordert.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <span class="slide-meta">Kapitel I: Forschungserfolge</span>
                             <h2>Beweiskraft</h2>
+                            <p>Statistische Signifikanz als neue Evidenz.</p>
                             <hr>
-                            <p>Statistische Signifikanz als Ergänzung zur klassischen Indizienkette.</p>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Wahrscheinlichkeitsrechnung vs. historisches Dokument</li>
-                                    <li>Validierung durch Vergleichsgruppen</li>
-                                    <li>Neue Form der Quellen-Evidenz</li>
+                                    <li>Statistische Wahrscheinlichkeit als Hilfsmittel.</li>
+                                    <li>Validierung durch algorithmische Vergleiche.</li>
                                 </ul>
                             </div>
                         </div>
@@ -391,19 +522,20 @@
                 <div class="slide">
                     <div class="slide-content">
                         <div class="image-side">
-                            <div class="image-box">[Bild: Abschluss Kapitel 1]</div>
-                            <div class="image-caption">Abb. 5: Dokumentation der Identität. Quelle: Eigene Rechercheergebnisse.</div>
+                            <span class="slide-meta">Kapitel I: Forschungserfolge</span>
+                            <div class="image-container">
+                                <div class="image-box">[Ergebnis]</div>
+                            </div>
+                            <button class="btn-deep-dive" data-title="Historiographische Konsequenzen" data-content="Die Identifikation von Tätern verändert unsere Perspektive auf die soziale Struktur der Tatbeteiligten und die Rekonstruktion von Verbrechenskomplexen.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <span class="slide-meta">Kapitel I: Forschungserfolge</span>
                             <h2>Ergebnis</h2>
+                            <p>Die erfolgreiche Identifikation und deren Bedeutung.</p>
                             <hr>
-                            <p>Die erfolgreiche Identifikation und deren Bedeutung für die Historiographie.</p>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Konkrete Benennung der Person</li>
-                                    <li>Juristische vs. Historische Verwertbarkeit</li>
-                                    <li>Fazit: Erfolg der computergestützten Heuristik</li>
+                                    <li>Schließung historischer Lücken.</li>
+                                    <li>Potenzial für zukünftige Forschungen.</li>
                                 </ul>
                             </div>
                         </div>
@@ -421,18 +553,21 @@
                 <div class="slide">
                     <div class="slide-content rev">
                         <div class="image-side">
-                            <div class="image-box">[Bild: Blackbox-Symbolik]</div>
-                            <div class="image-caption">Abb. 6: Symbolik der algorithmischen Blackbox. Quelle: Creative Commons CC-BY 4.0.</div>
+                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                            <div class="image-container">
+                                <div class="image-box">[Bild: Blackbox-Symbolik]</div>
+                            </div>
+                            <div class="image-caption">Abb. 6: Algorithmische Blackbox. Quelle: CC-BY 4.0.</div>
+                            <button class="btn-deep-dive" data-title="Kritik der algorithmischen Vernunft" data-content="Ohne Nachvollziehbarkeit verliert die Geschichtswissenschaft ihre Basis. Explainable AI (XAI) versucht, diese Prozesse durch Visualisierungen wieder sichtbar zu machen.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
                             <h2>Die algorithmische Blackbox</h2>
-                            <hr>
                             <p>Gefahren der Intransparenz in computergestützten Verfahren.</p>
+                            <hr>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Nachvollziehbarkeit des Ergebnisses</li>
-                                    <li>Quellencode als unzugängliche Quelle?</li>
+                                    <li>Problem: Wie kommen Algorithmen zu ihren Schlüssen?</li>
+                                    <li>Mangelnde Nachvollziehbarkeit widerspricht wissenschaftlichen Standards.</li>
                                 </ul>
                             </div>
                         </div>
@@ -443,18 +578,21 @@
                 <div class="slide">
                     <div class="slide-content rev">
                         <div class="image-side">
-                            <div class="image-box">[Bild: Halluzinations-Beispiel]</div>
-                            <div class="image-caption">Abb. 7: Beispiel für KI-generierte Fehlzitate. Quelle: KI-Auditbericht 2025.</div>
+                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                            <div class="image-container">
+                                <div class="image-box">[Bild: Halluzinations-Beispiel]</div>
+                            </div>
+                            <div class="image-caption">Abb. 7: KI-Fehlzitate. Quelle: KI-Audit.</div>
+                            <button class="btn-deep-dive" data-title="Phänomenologie der Halluzination" data-content="Large Language Models optimieren auf Wahrscheinlichkeit, nicht auf Wahrheit. Dies führt zu 'Fake Citations', die unentdeckt in den wissenschaftlichen Diskurs einfließen können.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
                             <h2>Digitale Halluzinationen</h2>
+                            <p>Wenn LLMs Lücken in der Überlieferung mit Fiktion füllen.</p>
                             <hr>
-                            <p>Wenn LLMs Lücken in der Überlieferung mit plausibler fiktion füllen.</p>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Fiktive Zitate in historischen Aufsätzen</li>
-                                    <li>Die Gefahr der "Plausibilitätsfalle"</li>
+                                    <li>Generative KI neigt zur Erfindung plausibel klingender Fakten.</li>
+                                    <li>Notwendigkeit massiver Fact-Checking-Infrastrukturen.</li>
                                 </ul>
                             </div>
                         </div>
@@ -465,18 +603,20 @@
                 <div class="slide">
                     <div class="slide-content rev">
                         <div class="image-side">
-                            <div class="image-box">[Bild: Bias-Visualisierung]</div>
-                            <div class="image-caption">Abb. 8: Karte der digitalisierten Bestände (Ungleichverteilung). Quelle: UNESCO Digital Library.</div>
+                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                            <div class="image-container">
+                                <div class="image-box">[Bias]</div>
+                            </div>
+                            <button class="btn-deep-dive" data-title="Postkoloniale Digitale Kritik" data-content="Die Dominanz westlicher Archive im Netz führt dazu, dass KI-Modelle eine eurozentrische Sicht auf die Weltgeschichte einnehmen.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
                             <h2>Struktureller Bias</h2>
+                            <p>Verzerrungen durch ungleiche Datenlagen.</p>
                             <hr>
-                            <p>Verzerrungen durch ungleiche Digitalisierungsraten und Trainingsdaten.</p>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Bevorzugung westlicher Archivbestände</li>
-                                    <li>Verstärkung bestehender Machtstrukturen</li>
+                                    <li>"Digital Divide" in der Überlieferung.</li>
+                                    <li>Bias in Trainingsdaten.</li>
                                 </ul>
                             </div>
                         </div>
@@ -487,18 +627,20 @@
                 <div class="slide">
                     <div class="slide-content rev">
                         <div class="image-side">
-                            <div class="image-box">[Bild: Kritik-Grafik]</div>
-                            <div class="image-caption">Abb. 9: Korrelationsstudie vs. Archivbefund. Quelle: Historiographie-Kritik Online.</div>
+                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                            <div class="image-container">
+                                <div class="image-box">[Kritik]</div>
+                            </div>
+                            <button class="btn-deep-dive" data-title="Das Ende der Geschichte?" data-content="Datenfetischismus droht die qualitative Analyse zu verdrängen. Historisches Verstehen erfordert mehr als reine Mustererkennung.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
                             <h2>Methodenkritik</h2>
+                            <p>Warum Statistik kein Ersatz für Verstehen ist.</p>
                             <hr>
-                            <p>Warum Statistik kein Ersatz für historisches Verstehen ist.</p>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Korrelation ≠ Kausalität</li>
-                                    <li>Grenzen des Maschinellen Lesens</li>
+                                    <li>Mustererkennung vs. Kontextanalyse.</li>
+                                    <li>Grenzen des rein Quantitativen.</li>
                                 </ul>
                             </div>
                         </div>
@@ -509,18 +651,20 @@
                 <div class="slide">
                     <div class="slide-content rev">
                         <div class="image-side">
-                            <div class="image-box">[Bild: Abschluss Kapitel 2]</div>
-                            <div class="image-caption">Abb. 10: Entwurf einer digitalen Hermeneutik. Quelle: Eigene Grafik.</div>
+                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                            <div class="image-container">
+                                <div class="image-box">[Hermeneutik]</div>
+                            </div>
+                            <button class="btn-deep-dive" data-title="Quellenkritik 2.0" data-content="Die Zukunft liegt in der 'Distant Reading' Methode gepaart mit 'Close Reading'. Ein hybrider Ansatz ist die Antwort auf die digitale Flut.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
                             <h2>Hermeneutik 2.0</h2>
+                            <p>Entwurf einer kritischen digitalen Quellenkunde.</p>
                             <hr>
-                            <p>Entwurf einer kritischen digitalen Quellenkunde für das 21. Jahrhundert.</p>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Der Historiker als Auditor von Algorithmen</li>
-                                    <li>Synthese aus Tradition und Innovation</li>
+                                    <li>Hybride Forschungsmethodik.</li>
+                                    <li>Quellenkritik im Zeitalter der KI.</li>
                                 </ul>
                             </div>
                         </div>
@@ -587,6 +731,44 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag..."
         let introTimeline;
         let isIntroFinished = false;
 
+        // Modal Logik
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+        const closeModal = document.getElementById('close-modal');
+
+        function openDeepDive(title, content) {
+            modalTitle.innerText = title;
+            modalContent.innerText = content;
+            modalOverlay.style.display = 'flex';
+            gsap.to(modalOverlay, { opacity: 1, duration: 0.3 });
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeDeepDive() {
+            gsap.to(modalOverlay, { 
+                opacity: 0, 
+                duration: 0.3, 
+                onComplete: () => {
+                    modalOverlay.style.display = 'none';
+                    if (isIntroFinished) document.body.style.overflowY = 'auto';
+                } 
+            });
+        }
+
+        // Event Listener für Buttons
+        document.querySelectorAll('.btn-deep-dive').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openDeepDive(btn.getAttribute('data-title'), btn.getAttribute('data-content'));
+            });
+        });
+
+        closeModal.addEventListener('click', closeDeepDive);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeDeepDive();
+        });
+
         window.onload = () => {
             introTimeline = gsap.timeline({
                 onComplete: () => {
@@ -622,20 +804,9 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag..."
                 ease: "expo.inOut",
                 delay: 1.5 
             });
-
-            window.addEventListener('click', () => {
-                if (!isIntroFinished && introTimeline) {
-                    if (introTimeline.paused()) {
-                        introTimeline.play();
-                    } else {
-                        introTimeline.pause();
-                    }
-                }
-            });
         };
 
         function initScrollAnimations() {
-            // KAPITEL 1: Slides nach LINKS
             const c1Wrapper = document.getElementById("c1-wrapper");
             gsap.to(c1Wrapper, {
                 xPercent: -80,
@@ -650,7 +821,6 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag..."
                 }
             });
 
-            // KAPITEL 2: Slides von LINKS kommend
             const c2Wrapper = document.getElementById("c2-wrapper");
             gsap.fromTo(c2Wrapper, 
                 { xPercent: -80 }, 
@@ -668,7 +838,6 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag..."
                 }
             );
 
-            // KAPITEL 3: Story-Scroller
             const steps = gsap.utils.toArray(".story-step");
             const imageBox = document.getElementById("story-image");
             const captionBox = document.getElementById("story-caption");
