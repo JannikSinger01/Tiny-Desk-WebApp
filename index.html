@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KI in der Geschichtswissenschaft | Präsentation</title>
+    <title>Geschichtswissenschaft im Wandel | Präsentation</title>
     <!-- GSAP & Plugins -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -66,10 +66,11 @@
             font-size: clamp(1.2rem, 3vw, 2rem); 
             position: absolute; 
             opacity: 0; 
-            max-width: 800px;
+            max-width: 900px;
             text-align: center;
             padding: 0 20px;
             transform: translateY(30px);
+            line-height: 1.3;
         }
 
         /* --- Horizontale Sektionen --- */
@@ -143,16 +144,18 @@
         }
 
         .text-side h2 {
-            font-size: 2.2rem;
+            font-size: clamp(1.5rem, 4vw, 2rem); 
             line-height: 1.1;
             margin-bottom: 15px;
+            white-space: nowrap; 
         }
 
         .text-side h2 span.subtitle {
-            display: block;
-            font-size: 1.3rem;
-            margin-top: 8px;
+            display: block; 
+            font-size: 1.2rem;
             color: var(--accent);
+            margin-top: 10px;
+            white-space: normal; 
         }
 
         .presentation-notes {
@@ -168,9 +171,9 @@
         .presentation-notes li {
             position: relative;
             padding-left: 25px;
-            margin-bottom: 15px;
-            font-size: 1.1rem;
-            line-height: 1.5;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            line-height: 1.4;
             color: var(--text);
         }
 
@@ -398,7 +401,8 @@
             <div id="year-display" class="counter">3000 v.Chr.</div>
             <div id="next-question" class="counter">Und weiter?</div>
         </div>
-        <h1 class="title-intro">KI in der Geschichtswissenschaft:<br>Zwischen Heuristik und Hermeneutik</h1>
+        <!-- Haupttitel der Anfangsanimation angepasst -->
+        <h1 class="title-intro">Geschichtswissenschaft im Wandel:<br>Wie KI die Digital History prägt</h1>
     </div>
 
     <div class="scroll-indicator">Scrollen</div>
@@ -423,11 +427,11 @@
                                 data-content="Die biometrische Analyse stützt sich auf über 40 Messpunkte im Gesichtsbereich. Im Fall Winniza wurden insbesondere die Ohr-Morphologie und der Augenabstand mit den Personalstammblättern der SS abgeglichen. Dieser Prozess erforderte eine digitale Rauschunterdrückung des historischen Materials, um Artefakte der analogen Entwicklung von echten Gesichtsmerkmalen zu unterscheiden. Wissenschaftlich relevant ist hier die Verschiebung von einer subjektiven Ähnlichkeitsprüfung hin zu einer statistisch validierbaren Identitätsprüfung.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <h2>"Der letzte Jude von Winniza"<br><span class="subtitle">eine Rekonstruktion</span></h2>
+                            <h2>"Der letzte Jude von Winniza" <span class="subtitle">eine Rekonstruktion</span></h2>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>eine der bekannstesten Bildikonen des Holocausts (datiert zwischen 1941-1943)</li>
+                                    <li>Eine der bekannstesten Bildikonen des Holocausts (datiert zwischen 1941-1943)</li>
                                     <li>Bild in Berdytschiw entstanden, nicht in Winniza</li>
                                     <li>Momentaufnahme vor einem Mord an einen unbekannten Juden in der Ukraine</li>
                                     <li>Täter wurde 2025 von Jürgen Matthäus identifiziert - u.a. mithilfe von KI</li>
@@ -443,21 +447,24 @@
                         <div class="image-side">
                             <span class="slide-meta">Kapitel I: Forschungserfolge</span>
                             <div class="image-container">
-                                <div class="image-box">[Bild: Analyse-Verfahren]</div>
+                                <div class="image-box">[Bild: Jakobus Onnen Porträt/Dokumente]</div>
                             </div>
-                            <div class="image-caption">Abb. 2: Feature-Extraction. Quelle: Eigene Darstellung.</div>
+                            <div class="image-caption">Abb. 2: Biografische Rekonstruktion des Täters.</div>
                             <button class="btn-deep-dive" 
-                                data-title="Technischer Exkurs: Convolutional Neural Networks" 
-                                data-content="CNNs (Faltungsneuronalnetze) sind darauf spezialisiert, hierarchische Muster in Bildern zu erkennen. In der Geschichtswissenschaft ermöglichen sie es, stilistische Merkmale oder eben biometrische Daten über verschiedene Quellentypen hinweg stabil zu identifizieren. Ein kritischer Punkt bleibt die Frage der Repräsentativität historischer Trainingsdaten.">weitere Informationen</button>
+                                data-title="Vertiefung: Rekonstruktion von Täterbiografien" 
+                                data-content="Die Identifikation von Jakobus Onnen ist ein Paradebeispiel für die Kombination von KI-gestützter Bildanalyse und klassischer Archivrecherche. Jürgen Matthäus konnte durch den Abgleich von biometrischen Merkmalen auf dem historischen Foto mit Personalakten der SS und der Ordnungspolizei die Identität zweifelsfrei klären. Dies unterstreicht die Bedeutung der KI als Heuristik-Tool, das Hinweise liefert, die dann hermeneutisch und quellenkritisch abgesichert werden müssen.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <h2>Algorithmische Analyse</h2>
+                            <h2>"Der letzte Jude von Winniza" <span class="subtitle">eine Analyse</span></h2>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Einsatz von CNNs zur Identifikation biometrischer Konstanten.</li>
-                                    <li>Analyse von Merkmalen, die dem menschlichen Auge entgehen.</li>
-                                    <li>Verarbeitung von historischem Rauschen und Bildfehlern.</li>
+                                    <li>Täter wurde 2025 von Jürgen Matthäus als Jakobus Onnen identifiziert</li>
+                                    <li>Onnen (geb. 1906 in Tichelwarf, Ostfriesland) war Lehrer für Französisch, Englisch und Sport</li>
+                                    <li>Er trat 1931 in die SA, 1932 in die SS ein</li>
+                                    <li>1939 Teil der Ordnungspolizei in Polen, ab 1941 Teil der Einsatzgruppe C</li>
+                                    <li>Er begann ersten Mord höchstwahrscheinlich 1941</li>
+                                    <li>Onnen starb 1943 im Krieg</li>
                                 </ul>
                             </div>
                         </div>
