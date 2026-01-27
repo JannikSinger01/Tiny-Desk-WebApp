@@ -177,12 +177,26 @@
             color: var(--text);
         }
 
+        /* Quadratische Punkte als Standard */
         .presentation-notes li::before {
-            content: "→";
+            content: "";
             position: absolute;
             left: 0;
-            color: #000;
+            top: 0.55em;
+            width: 6px;
+            height: 6px;
+            background-color: var(--text);
+        }
+
+        /* Pfeil-Bullet als Ausnahme */
+        .presentation-notes li.pfeil-bullet::before {
+            content: "→";
+            background-color: transparent;
+            width: auto;
+            height: auto;
+            top: 0;
             font-weight: bold;
+            font-size: 1.1rem;
         }
 
         /* --- Buttons & Modals --- */
@@ -401,7 +415,6 @@
             <div id="year-display" class="counter">3000 v.Chr.</div>
             <div id="next-question" class="counter">Und weiter?</div>
         </div>
-        <!-- Haupttitel der Anfangsanimation angepasst -->
         <h1 class="title-intro">Geschichtswissenschaft im Wandel:<br>Wie KI die Digital History prägt</h1>
     </div>
 
@@ -441,7 +454,7 @@
                     </div>
                 </div>
 
-                <!-- Slide 1.2: AKTUALISIERT -->
+                <!-- Slide 1.2 -->
                 <div class="slide">
                     <div class="slide-content">
                         <div class="image-side">
@@ -471,25 +484,26 @@
                     </div>
                 </div>
 
-                <!-- Slide 1.3 -->
+                <!-- Slide 1.3: AKTUALISIERT -->
                 <div class="slide">
                     <div class="slide-content">
                         <div class="image-side">
                             <span class="slide-meta">Kapitel I: Forschungserfolge</span>
                             <div class="image-container">
-                                <div class="image-box">[Bild: Datenbank-Struktur]</div>
+                                <div class="image-box">[Bild: Fachzeitschrift & Archivquellen]</div>
                             </div>
-                            <div class="image-caption">Abb. 3: Datenbankabfrage. Quelle: ITS Arolsen.</div>
-                            <button class="btn-deep-dive" data-title="Archiv-Digitalisierung & Big Data" data-content="Die integration der Bestände des International Tracing Service (ITS) markiert eine Zäsur. Metadata-Harvesting und automatisierte Volltextsuche erlauben eine Aggregation von Indizien in nahezu Echtzeit.">weitere Informationen</button>
+                            <div class="image-caption">Abb. 3: Publikation und neu erschlossene Familienquellen.</div>
+                            <button class="btn-deep-dive" data-title="Interdisziplinäre Methodik" data-content="Die Identifikation basierte auf einem dreistufigen Prozess: 1. Algorithmische Vorauswahl durch biometrischen Abgleich, 2. Erschließung privater Nachlässe durch mediale Aufmerksamkeit, 3. Hermeneutische Verifizierung durch Experten-Peer-Review. Erst die Verzahnung von Informatik, Forensik und Geschichtswissenschaft ermöglichte diesen Durchbruch.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <h2>Datenabgleich</h2>
+                            <h2>"Der letzte Jude von Winniza" <span class="subtitle">eine Analyse</span></h2>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Massendatenverarbeitung von Millionen digitalisierter Karteikarten.</li>
-                                    <li>Cross-Referencing: Verknüpfung von Bilddaten mit Schriftquellen.</li>
-                                    <li>Zusammenführung disparater Archivbestände.</li>
+                                    <li>Matthäus veröffentlichte seine neuen Erkenntnisse in einer Fachzeitschrift (2023)</li>
+                                    <li>Nachdem Medien darüber berichteten, meldete sich ein Verwandter von Onnen bei Matthäus</li>
+                                    <li>Matthäus erlang Quellen und Bilder von Onnen und konnte ihn mithilfe von KI und KI-Expert:innen identifizieren</li>
+                                    <li class="pfeil-bullet">Interdisziplinäre Zusammenarbeit nimmt Schlüsselrolle bei Erforschung des Bildes ein</li>
                                 </ul>
                             </div>
                         </div>
