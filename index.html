@@ -12,6 +12,8 @@
             --bg: #ffffff;
             --text: #000000;
             --border: #eeeeee;
+            --accent: #555555;
+            --caption: #777777;
         }
 
         * { box-sizing: border-box; }
@@ -23,11 +25,10 @@
             color: var(--text);
             overflow-x: hidden;
             overflow-y: hidden; /* Aktivierung nach Intro */
-            cursor: pointer; 
         }
 
         h1, h2, h3 { font-weight: normal; margin: 0; }
-        p { line-height: 1.8; font-size: 1.2rem; }
+        p { line-height: 1.6; font-size: 1.1rem; }
 
         /* --- Intro Overlay --- */
         #intro-overlay {
@@ -70,7 +71,7 @@
             transform: translateY(30px);
         }
 
-        /* --- Horizontale Sektionen (Kapitel 1 & 2) --- */
+        /* --- Horizontale Sektionen --- */
         section.horizontal-section {
             width: 100%;
             position: relative;
@@ -88,36 +89,93 @@
             width: 100vw;
             height: 100vh;
             display: flex;
+            padding: 40px 80px;
+            border-right: 1px solid var(--border);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide-content {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .slide-content.rev {
+            flex-direction: row-reverse;
+        }
+
+        .text-side {
+            flex: 1;
+            text-align: left;
+        }
+
+        .image-side {
+            flex: 1;
+            display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            padding: 60px;
-            text-align: center;
-            border-right: 1px solid var(--border);
         }
 
         .slide-meta {
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            display: block;
             opacity: 0.6;
         }
 
-        .image-placeholder {
+        .presentation-notes {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+        }
+
+        .presentation-notes ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .presentation-notes li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: var(--accent);
+        }
+
+        .presentation-notes li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #000;
+        }
+
+        .image-box {
             width: 100%;
-            max-width: 600px;
-            height: 350px;
+            aspect-ratio: 4/3;
             background: #fafafa;
             border: 1px solid #000;
             display: flex;
             align-items: center;
             justify-content: center;
             font-style: italic;
-            margin-top: 30px;
+            padding: 20px;
+            text-align: center;
         }
 
-        /* --- Kapitel 3: Story-Scroller (Vertikal) --- */
+        .image-caption {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            color: var(--caption);
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        /* --- Kapitel 3: Story-Scroller --- */
         #part-3 {
             position: relative;
             background: var(--bg);
@@ -144,6 +202,7 @@
             position: sticky;
             top: 0;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 50px;
@@ -151,7 +210,7 @@
 
         .sticky-image-box {
             width: 100%;
-            height: 80%;
+            height: 70%;
             background: #fdfdfd;
             border: 1px solid #000;
             display: flex;
@@ -232,89 +291,246 @@
 
     <main id="main-content">
         
-        <!-- KAPITEL 1: 5 SLIDES NACH RECHTS -->
+        <!-- KAPITEL 1: Bild LINKS, Text RECHTS -->
         <section id="c1-trigger" class="horizontal-section">
             <div class="horizontal-wrapper" id="c1-wrapper">
+                
+                <!-- Slide 1.1 -->
                 <div class="slide">
-                    <span class="slide-meta">Kapitel I: Forschungserfolge</span>
-                    <h2>Der Täter im Fokus</h2>
-                    <hr>
-                    <p>Fallstudie "Der letzte Jude von Winniza" – Biometrie in der Zeitgeschichte.</p>
-                    <div class="image-placeholder">[Bild: Winniza Originalquelle]</div>
+                    <div class="slide-content">
+                        <div class="image-side">
+                            <div class="image-box">[Bild: Winniza Originalquelle]</div>
+                            <div class="image-caption">Abb. 1: Originalfotografie aus dem Archiv XY. Quelle: Bundesarchiv, Best. 123.</div>
+                        </div>
+                        <div class="text-side">
+                            <span class="slide-meta">Kapitel I: Forschungserfolge</span>
+                            <h2>Der Täter im Fokus</h2>
+                            <hr>
+                            <p>Fallstudie "Der letzte Jude von Winniza" – Biometrie in der Zeitgeschichte.</p>
+                            <div class="presentation-notes">
+                                <ul>
+                                    <li>Kontext: Ikonisches Foto der Shoah</li>
+                                    <li>Problemstellung: Identität des Täters lange ungeklärt</li>
+                                    <li>Ansatz: Digitale Gesichtsvermessung</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Slide 1.2 -->
                 <div class="slide">
-                    <span class="slide-meta">Kapitel I: Forschungserfolge</span>
-                    <h2>Algorithmische Analyse</h2>
-                    <hr>
-                    <p>Wie Deep Learning Merkmale extrahiert, die dem menschlichen Auge entgehen.</p>
-                    <div class="image-placeholder">[Bild: Analyse-Verfahren]</div>
+                    <div class="slide-content">
+                        <div class="image-side">
+                            <div class="image-box">[Bild: Analyse-Verfahren]</div>
+                            <div class="image-caption">Abb. 2: Visualisierung der Feature-Extraction. Quelle: Eigene Darstellung nach Miller (2024).</div>
+                        </div>
+                        <div class="text-side">
+                            <span class="slide-meta">Kapitel I: Forschungserfolge</span>
+                            <h2>Algorithmische Analyse</h2>
+                            <hr>
+                            <p>Wie Deep Learning Merkmale extrahiert, die dem menschlichen Auge entgehen.</p>
+                            <div class="presentation-notes">
+                                <ul>
+                                    <li>Einsatz von Convolutional Neural Networks (CNN)</li>
+                                    <li>Vergleich von Ohrformen und Nasenrücken-Proportionen</li>
+                                    <li>Automatisierte Alterungssimulation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Slide 1.3 -->
                 <div class="slide">
-                    <span class="slide-meta">Kapitel I: Forschungserfolge</span>
-                    <h2>Datenabgleich</h2>
-                    <hr>
-                    <p>Automatisierte Suche in digitalen Beständen der SS-Personalakten.</p>
-                    <div class="image-placeholder">[Bild: Datenbank-Struktur]</div>
+                    <div class="slide-content">
+                        <div class="image-side">
+                            <div class="image-box">[Bild: Datenbank-Struktur]</div>
+                            <div class="image-caption">Abb. 3: Schema der Datenbankabfrage. Quelle: ITS Arolsen, Digitale Bestände.</div>
+                        </div>
+                        <div class="text-side">
+                            <span class="slide-meta">Kapitel I: Forschungserfolge</span>
+                            <h2>Datenabgleich</h2>
+                            <hr>
+                            <p>Automatisierte Suche in digitalen Beständen der SS-Personalakten.</p>
+                            <div class="presentation-notes">
+                                <ul>
+                                    <li>Massendatenverarbeitung (OCR-erfasste Akten)</li>
+                                    <li>Cross-Referencing mit Truppenbewegungen</li>
+                                    <li>Geschwindigkeit: Wochenlange Arbeit in Sekunden</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Slide 1.4 -->
                 <div class="slide">
-                    <span class="slide-meta">Kapitel I: Forschungserfolge</span>
-                    <h2>Beweiskraft</h2>
-                    <hr>
-                    <p>Statistische Signifikanz als Ergänzung zur klassischen Indizienkette.</p>
-                    <div class="image-placeholder">[Bild: Evidenz-Grafik]</div>
+                    <div class="slide-content">
+                        <div class="image-side">
+                            <div class="image-box">[Bild: Evidenz-Grafik]</div>
+                            <div class="image-caption">Abb. 4: Wahrscheinlichkeitsverteilung der Treffer. Quelle: Journal of Digital History, Vol. 12.</div>
+                        </div>
+                        <div class="text-side">
+                            <span class="slide-meta">Kapitel I: Forschungserfolge</span>
+                            <h2>Beweiskraft</h2>
+                            <hr>
+                            <p>Statistische Signifikanz als Ergänzung zur klassischen Indizienkette.</p>
+                            <div class="presentation-notes">
+                                <ul>
+                                    <li>Wahrscheinlichkeitsrechnung vs. historisches Dokument</li>
+                                    <li>Validierung durch Vergleichsgruppen</li>
+                                    <li>Neue Form der Quellen-Evidenz</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Slide 1.5 -->
                 <div class="slide">
-                    <span class="slide-meta">Kapitel I: Forschungserfolge</span>
-                    <h2>Ergebnis</h2>
-                    <hr>
-                    <p>Die erfolgreiche Identifikation und deren Bedeutung für die Historiographie.</p>
-                    <div class="image-placeholder">[Bild: Abschluss Kapitel 1]</div>
+                    <div class="slide-content">
+                        <div class="image-side">
+                            <div class="image-box">[Bild: Abschluss Kapitel 1]</div>
+                            <div class="image-caption">Abb. 5: Dokumentation der Identität. Quelle: Eigene Rechercheergebnisse.</div>
+                        </div>
+                        <div class="text-side">
+                            <span class="slide-meta">Kapitel I: Forschungserfolge</span>
+                            <h2>Ergebnis</h2>
+                            <hr>
+                            <p>Die erfolgreiche Identifikation und deren Bedeutung für die Historiographie.</p>
+                            <div class="presentation-notes">
+                                <ul>
+                                    <li>Konkrete Benennung der Person</li>
+                                    <li>Juristische vs. Historische Verwertbarkeit</li>
+                                    <li>Fazit: Erfolg der computergestützten Heuristik</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </section>
 
-        <!-- KAPITEL 2: 5 SLIDES NACH LINKS -->
+        <!-- KAPITEL 2: Text LINKS, Bild RECHTS -->
         <section id="c2-trigger" class="horizontal-section">
             <div class="horizontal-wrapper" id="c2-wrapper">
+                
+                <!-- Slide 2.1 -->
                 <div class="slide">
-                    <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
-                    <h2>Die algorithmische Blackbox</h2>
-                    <hr>
-                    <p>Gefahren der Intransparenz in computergestützten Verfahren.</p>
-                    <div class="image-placeholder">[Bild: Blackbox-Symbolik]</div>
+                    <div class="slide-content rev">
+                        <div class="image-side">
+                            <div class="image-box">[Bild: Blackbox-Symbolik]</div>
+                            <div class="image-caption">Abb. 6: Symbolik der algorithmischen Blackbox. Quelle: Creative Commons CC-BY 4.0.</div>
+                        </div>
+                        <div class="text-side">
+                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                            <h2>Die algorithmische Blackbox</h2>
+                            <hr>
+                            <p>Gefahren der Intransparenz in computergestützten Verfahren.</p>
+                            <div class="presentation-notes">
+                                <ul>
+                                    <li>Nachvollziehbarkeit des Ergebnisses</li>
+                                    <li>Quellencode als unzugängliche Quelle?</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Slide 2.2 -->
                 <div class="slide">
-                    <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
-                    <h2>Digitale Halluzinationen</h2>
-                    <hr>
-                    <p>Wenn LLMs Lücken in der Überlieferung mit plausibler Fiktion füllen.</p>
-                    <div class="image-placeholder">[Bild: Halluzinations-Beispiel]</div>
+                    <div class="slide-content rev">
+                        <div class="image-side">
+                            <div class="image-box">[Bild: Halluzinations-Beispiel]</div>
+                            <div class="image-caption">Abb. 7: Beispiel für KI-generierte Fehlzitate. Quelle: KI-Auditbericht 2025.</div>
+                        </div>
+                        <div class="text-side">
+                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                            <h2>Digitale Halluzinationen</h2>
+                            <hr>
+                            <p>Wenn LLMs Lücken in der Überlieferung mit plausibler fiktion füllen.</p>
+                            <div class="presentation-notes">
+                                <ul>
+                                    <li>Fiktive Zitate in historischen Aufsätzen</li>
+                                    <li>Die Gefahr der "Plausibilitätsfalle"</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Slide 2.3 -->
                 <div class="slide">
-                    <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
-                    <h2>Struktureller Bias</h2>
-                    <hr>
-                    <p>Verzerrungen durch ungleiche Digitalisierungsraten und Trainingsdaten.</p>
-                    <div class="image-placeholder">[Bild: Bias-Visualisierung]</div>
+                    <div class="slide-content rev">
+                        <div class="image-side">
+                            <div class="image-box">[Bild: Bias-Visualisierung]</div>
+                            <div class="image-caption">Abb. 8: Karte der digitalisierten Bestände (Ungleichverteilung). Quelle: UNESCO Digital Library.</div>
+                        </div>
+                        <div class="text-side">
+                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                            <h2>Struktureller Bias</h2>
+                            <hr>
+                            <p>Verzerrungen durch ungleiche Digitalisierungsraten und Trainingsdaten.</p>
+                            <div class="presentation-notes">
+                                <ul>
+                                    <li>Bevorzugung westlicher Archivbestände</li>
+                                    <li>Verstärkung bestehender Machtstrukturen</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Slide 2.4 -->
                 <div class="slide">
-                    <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
-                    <h2>Methodenkritik</h2>
-                    <hr>
-                    <p>Warum Statistik kein Ersatz für historisches Verstehen (Hermeneutik) ist.</p>
-                    <div class="image-placeholder">[Bild: Kritik-Grafik]</div>
+                    <div class="slide-content rev">
+                        <div class="image-side">
+                            <div class="image-box">[Bild: Kritik-Grafik]</div>
+                            <div class="image-caption">Abb. 9: Korrelationsstudie vs. Archivbefund. Quelle: Historiographie-Kritik Online.</div>
+                        </div>
+                        <div class="text-side">
+                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                            <h2>Methodenkritik</h2>
+                            <hr>
+                            <p>Warum Statistik kein Ersatz für historisches Verstehen ist.</p>
+                            <div class="presentation-notes">
+                                <ul>
+                                    <li>Korrelation ≠ Kausalität</li>
+                                    <li>Grenzen des Maschinellen Lesens</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Slide 2.5 -->
                 <div class="slide">
-                    <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
-                    <h2>Hermeneutik 2.0</h2>
-                    <hr>
-                    <p>Entwurf einer kritischen digitalen Quellenkunde für das 21. Jahrhundert.</p>
-                    <div class="image-placeholder">[Bild: Abschluss Kapitel 2]</div>
+                    <div class="slide-content rev">
+                        <div class="image-side">
+                            <div class="image-box">[Bild: Abschluss Kapitel 2]</div>
+                            <div class="image-caption">Abb. 10: Entwurf einer digitalen Hermeneutik. Quelle: Eigene Grafik.</div>
+                        </div>
+                        <div class="text-side">
+                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                            <h2>Hermeneutik 2.0</h2>
+                            <hr>
+                            <p>Entwurf einer kritischen digitalen Quellenkunde für das 21. Jahrhundert.</p>
+                            <div class="presentation-notes">
+                                <ul>
+                                    <li>Der Historiker als Auditor von Algorithmen</li>
+                                    <li>Synthese aus Tradition und Innovation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </section>
 
-        <!-- KAPITEL 3: STORY-SCROLLER (VERTIKAL) -->
+        <!-- KAPITEL 3: STORY-SCROLLER -->
         <section id="part-3">
             <div class="story-header">
                 <span class="slide-meta">Kapitel III: Vibe-Coding</span>
@@ -328,37 +544,35 @@
                     <div class="sticky-image-box" id="story-image">
                         [Screenshot: Erster Prompt]
                     </div>
+                    <div class="image-caption" id="story-caption">Quelle: Dokumentation der Entwicklungssession.</div>
                 </div>
 
                 <div class="story-content">
-                    <div class="story-step" data-image="[Screenshot: Der erste Vibe]">
+                    <div class="story-step" data-image="[Screenshot: Der erste Vibe]" data-caption="Quelle: Initiales Designkonzept / Vibe-Check.">
                         <h3>1. Die Vision / Der Vibe</h3>
                         <hr>
-                        <p>Alles begann mit einer groben Skizze: Eine WebApp, die sich wie ein wissenschaftliches Dossier anfühlt, aber die Dynamik moderner Algorithmen nutzt.</p>
+                        <p>Alles begann mit einer groben Skizze: Eine WebApp, die sich wie ein wissenschaftliches Dossier anfühlt.</p>
                         <div class="code-snippet">
-User: "Erstelle eine WebApp für einen Historiker-Vortrag. Minimalistisch, Times New Roman, GSAP Animationen..."
+User: "Erstelle eine WebApp für einen Historiker-Vortrag..."
                         </div>
-                        <p>Vibe-Coding bedeutet hier, die ästhetische und funktionale Richtung vorzugeben, während die KI die syntaktische Schwerstarbeit übernimmt.</p>
                     </div>
 
-                    <div class="story-step" data-image="[Screenshot: Debugging-Prozess]">
+                    <div class="story-step" data-image="[Screenshot: Debugging-Prozess]" data-caption="Quelle: Log-Protokoll der CSS-Anpassungen.">
                         <h3>2. Iteratives Design</h3>
                         <hr>
-                        <p>Wissenschaftliche Arbeit ist Iteration. Das galt auch für den Code. Das horizontale Scrollen in Kapitel 2 musste mehrfach angepasst werden, um den inhaltlichen Kontrast ("Gegenbewegung") zu Kapitel 1 abzubilden.</p>
-                        <p>Durch direktes Feedback an die KI konnten Design-Entscheidungen (wie die Bildplatzhalter und Abstände) in Sekunden umgesetzt werden.</p>
+                        <p>Anpassung der Scroll-Richtungen und Layouts für maximale inhaltliche Wirkung.</p>
                     </div>
 
-                    <div class="story-step" data-image="[Screenshot: GSAP Integration]">
-                        <h3>3. Die Technik hinter den Kulissen</h3>
+                    <div class="story-step" data-image="[Screenshot: GSAP Integration]" data-caption="Quelle: GSAP API Dokumentation & Implementation.">
+                        <h3>3. Die Technik</h3>
                         <hr>
-                        <p>Die Nutzung von GSAP ScrollTrigger ermöglicht es uns, die Aufmerksamkeit des Publikums gezielt zu steuern. In diesem "Story-Scroller" wird das Bild erst gewechselt, wenn der Text gelesen wird.</p>
-                        <p>Dies simuliert den Prozess der Quellenarbeit: Ein Blick auf das Dokument (Bild), gefolgt von der Analyse (Text).</p>
+                        <p>GSAP ScrollTrigger zur Steuerung der Aufmerksamkeit.</p>
                     </div>
 
-                    <div class="story-step" data-image="[Screenshot: Finale App]">
-                        <h3>4. Das Ergebnis als Artefakt</h3>
+                    <div class="story-step" data-image="[Screenshot: Finale App]" data-caption="Quelle: Deployment der Live-Vorschau.">
+                        <h3>4. Das Ergebnis</h3>
                         <hr>
-                        <p>Diese Applikation ist nicht nur ein Präsentationsmedium, sondern selbst ein Beispiel für die im Seminar besprochenen Erfolge: Sie zeigt, wie Geisteswissenschaftler sich Technik aneignen können, um ihre Forschung neu zu präsentieren.</p>
+                        <p>Ein hybrides Artefakt aus Geisteswissenschaft und moderner Webentwicklung.</p>
                         <button class="start-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">Zurück zum Start</button>
                     </div>
                 </div>
@@ -386,7 +600,6 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag. Minimalistisch, Times
             const yearDisplay = document.getElementById("year-display");
             let countData = { val: -3000 };
 
-            // Intro Animation Sequenz
             introTimeline.to(countData, {
                 val: 2026,
                 duration: 4.5, 
@@ -410,7 +623,6 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag. Minimalistisch, Times
                 delay: 1.5 
             });
 
-            // Click-to-Pause Logik (Funktion bleibt ohne visuellen Hinweis aktiv)
             window.addEventListener('click', () => {
                 if (!isIntroFinished && introTimeline) {
                     if (introTimeline.paused()) {
@@ -423,7 +635,7 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag. Minimalistisch, Times
         };
 
         function initScrollAnimations() {
-            // KAPITEL 1: Slides nach LINKS (vorwärts)
+            // KAPITEL 1: Slides nach LINKS
             const c1Wrapper = document.getElementById("c1-wrapper");
             gsap.to(c1Wrapper, {
                 xPercent: -80,
@@ -438,7 +650,7 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag. Minimalistisch, Times
                 }
             });
 
-            // KAPITEL 2: Slides von LINKS kommend (entgegengesetzt)
+            // KAPITEL 2: Slides von LINKS kommend
             const c2Wrapper = document.getElementById("c2-wrapper");
             gsap.fromTo(c2Wrapper, 
                 { xPercent: -80 }, 
@@ -456,9 +668,10 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag. Minimalistisch, Times
                 }
             );
 
-            // KAPITEL 3: Story-Scroller Logik
+            // KAPITEL 3: Story-Scroller
             const steps = gsap.utils.toArray(".story-step");
             const imageBox = document.getElementById("story-image");
+            const captionBox = document.getElementById("story-caption");
 
             steps.forEach((step, i) => {
                 ScrollTrigger.create({
@@ -471,12 +684,15 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag. Minimalistisch, Times
                             step.classList.add("active");
                             
                             const newImageText = step.getAttribute("data-image");
-                            gsap.to(imageBox, {
+                            const newCaptionText = step.getAttribute("data-caption");
+
+                            gsap.to([imageBox, captionBox], {
                                 opacity: 0,
                                 duration: 0.3,
                                 onComplete: () => {
                                     imageBox.innerText = newImageText;
-                                    gsap.to(imageBox, { opacity: 1, duration: 0.3 });
+                                    captionBox.innerText = newCaptionText;
+                                    gsap.to([imageBox, captionBox], { opacity: 1, duration: 0.3 });
                                 }
                             });
                         }
