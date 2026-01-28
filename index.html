@@ -307,25 +307,19 @@
             text-align: justify;
         }
 
+        /* Anpassung: Kein Rahmen, kein Hintergrund, volle Breite */
         .image-box {
             width: 100%;
-            aspect-ratio: 4/3;
-            background: #fafafa;
-            border: 1px solid #000;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-style: italic;
-            padding: 10px;
-            text-align: center;
             overflow: hidden;
         }
 
-        /* Styling für die Bilder in den Boxen */
-        .image-box img, .sticky-image-box img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
+        .image-box img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
             display: block;
         }
 
@@ -370,19 +364,23 @@
             padding: 50px;
         }
 
+        /* Anpassung für Story-Visuals: Rahmen entfernt */
         .sticky-image-box {
             width: 100%;
-            height: 70%;
-            background: #fdfdfd;
-            border: 1px solid #000;
+            max-height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-style: italic;
             position: relative;
             transition: opacity 0.5s ease;
             overflow: hidden;
-            padding: 10px;
+        }
+
+        .sticky-image-box img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
         }
 
         .story-content {
@@ -577,7 +575,6 @@
                             <span class="slide-meta">Kapitel I: Forschungserfolge</span>
                             <div class="image-container">
                                 <div class="image-box">
-                                    <!-- PLATZHALTER: Hier den Link zum Bild "Winniza Originalquelle" einfügen -->
                                     <img src="images/original.jpeg" alt="Winniza Originalquelle">
                                 </div>
                             </div>
@@ -608,7 +605,6 @@
                             <span class="slide-meta">Kapitel I: Forschungserfolge</span>
                             <div class="image-container">
                                 <div class="image-box">
-                                    <!-- PLATZHALTER: Hier den Link zum Bild "Jakobus Onnen Porträt" einfügen -->
                                     <img src="images/onnen.png" alt="Jakobus Onnen">
                                 </div>
                             </div>
@@ -641,7 +637,6 @@
                             <span class="slide-meta">Kapitel I: Forschungserfolge</span>
                             <div class="image-container">
                                 <div class="image-box">
-                                    <!-- PLATZHALTER: Hier den Link zum Bild "Fachzeitschrift" einfügen -->
                                     <img src="images/abgleich.png" alt="abgleich">
                                 </div>
                             </div>
@@ -742,7 +737,6 @@
                             <span class="slide-meta">Kapitel II: Was haben wir gemacht?</span>
                             <div class="image-container">
                                 <div class="image-box">
-                                    <!-- PLATZHALTER: Hier den Link zum Bild "Kritische KI-Nutzung" einfügen -->
                                     <img src="images/kritik_ki.jpg" alt="Kritische KI-Nutzung">
                                 </div>
                             </div>
@@ -770,7 +764,6 @@
                             <span class="slide-meta">Kapitel II: Was haben wir gemacht?</span>
                             <div class="image-container">
                                 <div class="image-box">
-                                    <!-- PLATZHALTER: Hier den Link zum Bild "Kreativer Prozess" einfügen -->
                                     <img src="images/prozess_kreativ.jpg" alt="Kreativer Prozess">
                                 </div>
                             </div>
@@ -798,7 +791,6 @@
                             <span class="slide-meta">Kapitel II: Was haben wir gemacht?</span>
                             <div class="image-container">
                                 <div class="image-box">
-                                    <!-- PLATZHALTER: Hier den Link zum Bild "App-Portfolio" einfügen -->
                                     <img src="images/portfolio_apps.jpg" alt="App-Portfolio">
                                 </div>
                             </div>
@@ -826,7 +818,6 @@
                             <span class="slide-meta">Kapitel II: Was haben wir gemacht?</span>
                             <div class="image-container">
                                 <div class="image-box">
-                                    <!-- PLATZHALTER: Hier den Link zum Bild "Digital History Workshop" einfügen -->
                                     <img src="images/workshop_history.jpg" alt="Digital History Workshop">
                                 </div>
                             </div>
@@ -861,7 +852,6 @@
             <div class="story-container">
                 <div class="story-visuals">
                     <div class="sticky-image-box" id="story-image">
-                        <!-- Initiales Bild für Story (wird per JS überschrieben) -->
                         <img src="images/story_initial.jpg" alt="Entwicklung">
                     </div>
                     <div class="image-caption" id="story-caption">Quelle: Dokumentation der Entwicklungssession.</div>
@@ -982,7 +972,6 @@ User: "Erstelle eine WebApp for einen Historiker-Vortrag..."
             introTimeline.to(".title-intro", { opacity: 1, y: 0, duration: 1 });
             introTimeline.to(".intro-authors", { opacity: 1, y: 0, duration: 1 }, "-=0.5");
             
-            // Button und Overlay ausblenden
             introTimeline.to("#btn-intro-pause", { opacity: 0, duration: 0.5, onComplete: () => document.getElementById('btn-intro-pause').style.display = 'none' }, "+=1");
             introTimeline.to("#intro-overlay", {
                 yPercent: -100,
@@ -1060,14 +1049,12 @@ User: "Erstelle eine WebApp for einen Historiker-Vortrag..."
                             steps.forEach(s => s.classList.remove("active"));
                             step.classList.add("active");
                             
-                            // Holt den Link aus dem data-image Attribut
                             const newImageUrl = step.getAttribute("data-image");
                             const newCaptionText = step.getAttribute("data-caption");
                             
                             gsap.to([imageBox, captionBox], {
                                 opacity: 0, duration: 0.2,
                                 onComplete: () => {
-                                    // Erstellt ein img Element statt nur Text
                                     imageBox.innerHTML = `<img src="${newImageUrl}" alt="Step ${i}">`;
                                     captionBox.innerText = newCaptionText;
                                     gsap.to([imageBox, captionBox], { opacity: 1, duration: 0.2 });
