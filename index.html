@@ -171,7 +171,7 @@
             min-height: 0; /* Erlaubt dem Container, kleiner zu werden als sein Inhalt */
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start; /* Änderung: Inhalt oben ausrichten */
             margin-bottom: 10px;
         }
 
@@ -180,8 +180,8 @@
             width: 100%;
             height: 100%;
             display: flex;
-            align-items: center; 
-            justify-content: center;
+            align-items: flex-start; /* Änderung: Bild oben bündig */
+            justify-content: flex-start; /* Änderung: Bild links bündig */
         }
 
         .image-box img {
@@ -386,8 +386,8 @@
             flex: 1; /* Fill remaining space */
             min-height: 0;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: flex-start; /* Änderung: Oben bündig */
+            justify-content: flex-start; /* Änderung: Links bündig */
             position: relative;
             transition: opacity 0.5s ease;
             overflow: visible;
