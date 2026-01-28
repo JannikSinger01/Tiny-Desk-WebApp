@@ -233,23 +233,24 @@
             flex-shrink: 0; /* Darf nicht gestaucht werden */
         }
 
+        /* --- Schriftgrößen angepasst für bessere Lesbarkeit --- */
         .text-side h2 {
-            font-size: clamp(1.5rem, 4vw, 2rem); 
+            font-size: clamp(2rem, 5vw, 2.8rem); /* Vergrößert */
             line-height: 1.1;
-            margin-bottom: 15px;
+            margin-bottom: 25px; /* Etwas mehr Abstand */
             white-space: nowrap; 
         }
 
         .text-side h2 span.subtitle {
             display: block; 
-            font-size: 1.2rem;
+            font-size: 1.5rem; /* Vergrößert */
             color: var(--accent);
             margin-top: 10px;
             white-space: normal; 
         }
 
         .presentation-notes {
-            margin-top: 20px;
+            margin-top: 30px; /* Mehr Abstand nach oben */
         }
 
         .presentation-notes ul {
@@ -260,10 +261,10 @@
 
         .presentation-notes li {
             position: relative;
-            padding-left: 25px;
-            margin-bottom: 12px;
-            font-size: 1rem;
-            line-height: 1.4;
+            padding-left: 30px; /* Mehr Einzug */
+            margin-bottom: 20px; /* Mehr Abstand zwischen Punkten */
+            font-size: 1.4rem; /* DEUTLICH vergrößert */
+            line-height: 1.5;
             color: var(--text);
         }
 
@@ -271,9 +272,9 @@
             content: "";
             position: absolute;
             left: 0;
-            top: 0.55em;
-            width: 6px;
-            height: 6px;
+            top: 0.6em; /* Ausrichtung angepasst */
+            width: 8px; /* Größere Bullets */
+            height: 8px;
             background-color: var(--text);
         }
 
@@ -284,7 +285,7 @@
             height: auto;
             top: 0;
             font-weight: bold;
-            font-size: 1.1rem;
+            font-size: 1.6rem; /* Größerer Pfeil */
         }
 
         .slide-content.rev .btn-deep-dive {
