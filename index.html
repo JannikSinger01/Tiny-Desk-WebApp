@@ -44,6 +44,28 @@
             z-index: 1000;
         }
 
+        /* Intro Pause Button */
+        #btn-intro-pause {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1100;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--accent);
+            padding: 4px 8px;
+            font-size: 0.65rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.4;
+            transition: opacity 0.3s, border-color 0.3s;
+        }
+        #btn-intro-pause:hover {
+            opacity: 1;
+            border-color: var(--text);
+        }
+
         .stage {
             position: relative;
             width: 100%;
@@ -96,7 +118,6 @@
             will-change: transform;
         }
 
-        /* Spezifische Breiten für die Kapitel */
         #c1-wrapper { width: 300%; }
         #c2-wrapper { width: 500%; }
 
@@ -295,8 +316,17 @@
             align-items: center;
             justify-content: center;
             font-style: italic;
-            padding: 20px;
+            padding: 10px;
             text-align: center;
+            overflow: hidden;
+        }
+
+        /* Styling für die Bilder in den Boxen */
+        .image-box img, .sticky-image-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: block;
         }
 
         .image-caption {
@@ -351,6 +381,8 @@
             font-style: italic;
             position: relative;
             transition: opacity 0.5s ease;
+            overflow: hidden;
+            padding: 10px;
         }
 
         .story-content {
@@ -407,6 +439,105 @@
             transition: background 0.3s;
         }
         button.start-btn:hover { background: #000; color: #fff; }
+
+        /* --- Animations-Stile (Kapitel II) --- */
+        .anim-comparison-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid var(--border);
+            width: 100%;
+        }
+
+        .anim-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+
+        .anim-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .canvas-container {
+            position: relative;
+            width: 180px; 
+            height: 220px;
+            background: #ffffff;
+            border-radius: 4px;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+
+        .frame-part {
+            position: absolute;
+            background: #3d2b1f;
+            opacity: 0;
+            z-index: 20;
+        }
+        .f-top    { top: 0; left: 0; width: 100%; height: 10px; }
+        .f-bottom { bottom: 0; left: 0; width: 100%; height: 10px; }
+        .f-left   { top: 0; left: 0; width: 10px; height: 100%; }
+        .f-right  { top: 0; right: 0; width: 10px; height: 100%; }
+
+        .painting-area {
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            overflow: hidden;
+            background: #f1f5f9;
+        }
+
+        .paint-stroke {
+            position: absolute;
+            width: 110%;
+            height: 25%;
+            background: linear-gradient(90deg, #a88a64, #d4af37, #7a5c33);
+            border-radius: 2px;
+            z-index: 5;
+        }
+
+        .tool-icon {
+            position: absolute;
+            font-size: 1.2rem;
+            z-index: 50;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .anim-status {
+            margin-top: 10px;
+            font-size: 0.65rem;
+            font-family: monospace;
+            height: 14px;
+        }
+
+        .anim-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .anim-btn {
+            background: #fff;
+            border: 1px solid #000;
+            padding: 5px 12px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .anim-btn:hover { background: #000; color: #fff; }
+        .anim-btn:disabled { opacity: 0.3; }
     </style>
 </head>
 <body>
@@ -422,6 +553,7 @@
     </div>
 
     <div id="intro-overlay">
+        <button id="btn-intro-pause" onclick="toggleIntroPause()">Pause</button>
         <div class="stage">
             <div id="year-display" class="counter">3000 v.Chr.</div>
             <div id="next-question" class="counter">Und weiter?</div>
@@ -444,9 +576,12 @@
                         <div class="image-side">
                             <span class="slide-meta">Kapitel I: Forschungserfolge</span>
                             <div class="image-container">
-                                <div class="image-box">[Bild: Winniza Originalquelle]</div>
+                                <div class="image-box">
+                                    <!-- PLATZHALTER: Hier den Link zum Bild "Winniza Originalquelle" einfügen -->
+                                    <img src="images/original.jpeg" alt="Winniza Originalquelle">
+                                </div>
                             </div>
-                            <div class="image-caption">Abb. 1: Originalfotografie aus dem Archiv XY. Quelle: Bundesarchiv, Best. 123.</div>
+                            <div class="image-caption">Abb. 1: Abzug des Bildes "Der letzte Jude von Winniza".</div>
                             <button class="btn-deep-dive" 
                                 data-title="Vertiefung: Biometrische Identifikation" 
                                 data-content="Die biometrische Analyse stützt sich auf über 40 Messpunkte im Gesichtsbereich. Im Fall Winniza wurden insbesondere die Ohr-Morphologie und der Augenabstand mit den Personalstammblättern der SS abgeglichen. Dieser Prozess erforderte eine digitale Rauschunterdrückung des historischen Materials, um Artefakte der analogen Entwicklung von echten Gesichtsmerkmalen zu unterscheiden. Wissenschaftlich relevant ist hier die Verschiebung von einer subjektiven Ähnlichkeitsprüfung hin zu einer statistisch validierbaren Identitätsprüfung.">weitere Informationen</button>
@@ -472,9 +607,12 @@
                         <div class="image-side">
                             <span class="slide-meta">Kapitel I: Forschungserfolge</span>
                             <div class="image-container">
-                                <div class="image-box">[Bild: Jakobus Onnen Porträt/Dokumente]</div>
+                                <div class="image-box">
+                                    <!-- PLATZHALTER: Hier den Link zum Bild "Jakobus Onnen Porträt" einfügen -->
+                                    <img src="images/onnen.png" alt="Jakobus Onnen">
+                                </div>
                             </div>
-                            <div class="image-caption">Abb. 2: Biografische Rekonstruktion des Täters.</div>
+                            <div class="image-caption">Abb. 2: Jakobus Onnen</div>
                             <button class="btn-deep-dive" 
                                 data-title="Vertiefung: Rekonstruktion von Täterbiografien" 
                                 data-content="Die identifikation von Jakobus Onnen ist ein Paradebeispiel für die Kombination von KI-gestützter Bildanalyse und klassischer Archivrecherche. Jürgen Matthäus konnte durch den Abgleich von biometrischen Merkmalen auf dem historischen Foto mit Personalakten der SS und der Ordnungspolizei die Identität zweifelsfrei klären. Dies unterstreicht die Bedeutung der KI als Heuristik-Tool, das Hinweise liefert, die dann hermeneutisch und quellenkritisch abgesichert werden müssen.">weitere Informationen</button>
@@ -502,9 +640,12 @@
                         <div class="image-side">
                             <span class="slide-meta">Kapitel I: Forschungserfolge</span>
                             <div class="image-container">
-                                <div class="image-box">[Bild: Fachzeitschrift & Archivquellen]</div>
+                                <div class="image-box">
+                                    <!-- PLATZHALTER: Hier den Link zum Bild "Fachzeitschrift" einfügen -->
+                                    <img src="images/abgleich.png" alt="abgleich">
+                                </div>
                             </div>
-                            <div class="image-caption">Abb. 3: Publikation und neu erschlossene Familienquellen.</div>
+                            <div class="image-caption">Abb. 3: Ergebnis der KI-Gesichtserkennung</div>
                             <button class="btn-deep-dive" data-title="Interdisziplinäre Methodik" data-content="Die Identifikation basierte auf einem dreistufigen Prozess: 1. Algorithmische Vorauswahl durch biometrischen Abgleich, 2. Erschließung privater Nachlässe durch mediale Aufmerksamkeit, 3. Hermeneutische Verifizierung durch Experten-Peer-Review. Erst die Verzahnung von Informatik, Forensik und Geschichtswissenschaft ermöglichte diesen Durchbruch.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
@@ -529,16 +670,56 @@
         <section id="c2-trigger" class="horizontal-section">
             <div class="horizontal-wrapper" id="c2-wrapper">
                 
-                <!-- Slide 2.1 (AKTUALISIERT: Fazit) -->
+                <!-- Slide 2.1 (Fazit - Animation) -->
                 <div class="slide">
                     <div class="slide-content rev">
                         <div class="image-side">
-                            <span class="slide-meta">Kapitel II: Resümee</span>
+                            <span class="slide-meta">Kapitel II: Was haben wir gemacht?</span>
                             <div class="image-container">
-                                <div class="image-box">[Bild: Synergie Mensch-Maschine]</div>
+                                <div class="anim-comparison-container">
+                                    <div class="anim-column">
+                                        <div class="anim-label">Konventionell</div>
+                                        <div class="canvas-container" id="container-conv">
+                                            <div class="tool-icon" id="hammer-conv">🔨</div>
+                                            <div class="tool-icon" id="brush-conv">🖌️</div>
+                                            <div class="frame-part f-top" id="c-ft"></div>
+                                            <div class="frame-part f-right" id="c-fr"></div>
+                                            <div class="frame-part f-bottom" id="c-fb"></div>
+                                            <div class="frame-part f-left" id="c-fl"></div>
+                                            <div class="painting-area">
+                                                <div class="paint-stroke s1" style="top: 0%"></div>
+                                                <div class="paint-stroke s2" style="top: 25%"></div>
+                                                <div class="paint-stroke s3" style="top: 50%"></div>
+                                                <div class="paint-stroke s4" style="top: 75%"></div>
+                                            </div>
+                                        </div>
+                                        <div id="status-conv" class="anim-status">Bereit</div>
+                                    </div>
+                                    <div class="anim-column">
+                                        <div class="anim-label">KI-Unterstützt</div>
+                                        <div class="canvas-container" id="container-ai">
+                                            <div class="tool-icon" id="hammer-ai">🔨</div>
+                                            <div class="tool-icon" id="brush-ai">🖌️</div>
+                                            <div class="frame-part f-top" id="a-ft"></div>
+                                            <div class="frame-part f-right" id="a-fr"></div>
+                                            <div class="frame-part f-bottom" id="a-fb"></div>
+                                            <div class="frame-part f-left" id="a-left"></div>
+                                            <div class="painting-area">
+                                                <div class="paint-stroke sa1" style="top: 0%"></div>
+                                                <div class="paint-stroke sa2" style="top: 25%"></div>
+                                                <div class="paint-stroke sa3" style="top: 50%"></div>
+                                                <div class="paint-stroke sa4" style="top: 75%"></div>
+                                            </div>
+                                        </div>
+                                        <div id="status-ai" class="anim-status" style="color: #4f46e5">Bereit</div>
+                                    </div>
+                                </div>
+                                <div class="anim-controls">
+                                    <button class="anim-btn" onclick="animateComparison()">Start</button>
+                                    <button id="btn-anim-pause" class="anim-btn" onclick="toggleAnimPause()" disabled>Pause</button>
+                                    <button class="anim-btn" onclick="resetComparison()">Reset</button>
+                                </div>
                             </div>
-                            <div class="image-caption">Abb. 12: Die Rolle der KI als unterstützendes Werkzeug in der Geschichtswissenschaft.</div>
-                            <button class="btn-deep-dive" data-title="Vertiefung: Das Handwerk der Geschichte" data-content="Die Analogie vom Gerüst und der Handwerker:in verdeutlicht die Grenzen generativer KI: Sie kann Strukturen schaffen und Datenmassen organisieren, aber das eigentliche 'Handwerk' – die kritische Einordnung, die moralische Bewertung und die hermeneutische Interpretation – verbleibt beim Menschen. Eine generative KI kann Historiker:innen nicht ersetzen, da sie keine Intention und kein historisches Bewusstsein besitzt. Die intensive Nutzung als hochwertiges Tool ist zudem an ökonomische und technische Hürden geknüpft, die in der wissenschaftlichen Praxis reflektiert werden müssen.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
                             <h2>Fazit</h2>
@@ -558,12 +739,13 @@
                 <div class="slide">
                     <div class="slide-content rev">
                         <div class="image-side">
-                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                            <span class="slide-meta">Kapitel II: Was haben wir gemacht?</span>
                             <div class="image-container">
-                                <div class="image-box">[Bild: Kritische KI-Nutzung]</div>
+                                <div class="image-box">
+                                    <!-- PLATZHALTER: Hier den Link zum Bild "Kritische KI-Nutzung" einfügen -->
+                                    <img src="images/kritik_ki.jpg" alt="Kritische KI-Nutzung">
+                                </div>
                             </div>
-                            <div class="image-caption">Abb. 11: Grenzen und Ressourcenverbrauch moderner LLMs.</div>
-                            <button class="btn-deep-dive" data-title="Vertiefung: Ethik und Ressourcen" data-content="Die Nutzung von KI in der Wissenschaft ist nicht wertneutral. Neben dem immensen Stromverbrauch und dem damit verbundenen CO2-Fußabdruck stellt der Datenschutz das größte Hindernis dar – insbesondere bei der Verarbeitung unveröffentlichter Archivquellen. Zudem unterliegt das 'Kontextfenster' (der Arbeitsspeicher) der KI Limitierungen, die bei komplexen historischen Diskursen zu Informationsverlust führen können. Prompting ist dabei eine Fertigkeit, die eine präzise Sprache und methodisches Verständnis erfordert.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
                             <h2>Kritische KI-Nutzung</h2>
@@ -585,12 +767,13 @@
                 <div class="slide">
                     <div class="slide-content rev">
                         <div class="image-side">
-                            <span class="slide-meta">Kapitel II: Methoden & Praxis</span>
+                            <span class="slide-meta">Kapitel II: Was haben wir gemacht?</span>
                             <div class="image-container">
-                                <div class="image-box">[Bild: Kreativer Prozess / Sandbox]</div>
+                                <div class="image-box">
+                                    <!-- PLATZHALTER: Hier den Link zum Bild "Kreativer Prozess" einfügen -->
+                                    <img src="images/prozess_kreativ.jpg" alt="Kreativer Prozess">
+                                </div>
                             </div>
-                            <div class="image-caption">Abb. 9: Iteratives Design und Exploratives Lernen in der KI-Sandbox.</div>
-                            <button class="btn-deep-dive" data-title="Das Konzept der Selbstwirksamkeit" data-content="Die Erfahrung, ohne tiefe Programmierkenntnisse funktionale Software zu erstellen, verändert das wissenschaftliche Selbstverständnis. 'Sandboxen' bedeutet hier: Hypothesen über die Darstellung von Geschichte direkt in Code zu gießen, sofortiges Feedback zu erhalten und bei Bedarf radikal neu zu beginnen. KI fungiert dabei als Sparring-Partner, der die Lücke zwischen konzeptioneller Idee und technischer Umsetzung schließt.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
                             <h2>Erfahrungen</h2>
@@ -612,21 +795,24 @@
                 <div class="slide">
                     <div class="slide-content rev">
                         <div class="image-side">
-                            <span class="slide-meta">Kapitel II: Methoden & Praxis</span>
+                            <span class="slide-meta">Kapitel II: Was haben wir gemacht?</span>
                             <div class="image-container">
-                                <div class="image-box">[Bild: App-Portfolio]</div>
+                                <div class="image-box">
+                                    <!-- PLATZHALTER: Hier den Link zum Bild "App-Portfolio" einfügen -->
+                                    <img src="images/portfolio_apps.jpg" alt="App-Portfolio">
+                                </div>
                             </div>
                             <div class="image-caption">Abb. 7: Portfolio der im Workshop entwickelten Applikationen.</div>
-                            <button class="btn-deep-dive" data-title="Vertiefung: No-Code Entwicklung für Geisteswissenschaften" data-content="Der Erfolg der 11 Webapps belegt, dass die technologische Hürde durch KI massiv gesunken ist. Historiker:innen können nun Prototypen für interaktive Karten oder Quellenannotationen selbst entwerwen, was die Autonomie in der digitalen Wissensvermittlung stärkt. Der Web-App-Slam dient hierbei als kompetitives und zugleich kollaboratives Format zur Qualitätssicherung und Ideenaustausch.">weitere Informationen</button>
+                            <button class="btn-deep-dive" data-title="Vertiefung: No-Code Entwicklung für Geisteswissenschaften" data-content="Der Erfolg der 11 Webapps belegt, dass die technologische Hürde durch KI massiv gesunken ist. Historiker:innen können nun Prototypen für interaktive Karten oder Quellen annotationen selbst entwerfen, was die Autonomie in der digitalen Wissensvermittlung stärkt.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
                             <h2>Erfolge / Ergebnisse</h2>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>11 Webapps, in denen unterschiedliche Ideen und Konzepte umgesetzt wurden: interaktive Karten, Kommunikationssimulationen, Serious Games, Quellenannotation</li>
-                                    <li>innerhalb von Wochen von einer Idee zur fertig codierten Webapp - ohne (Vor)kenntnisse über Programmierung</li>
-                                    <li>Web-App-Slam (Bildrechte anfragen)</li>
+                                    <li>11 Webapps mit unterschiedlichen Ideen: Karten, Simulationen, Serious Games, Quellenannotation</li>
+                                    <li>Innerhalb von Wochen von der Idee zur Webapp - ohne Programmierkenntnisse</li>
+                                    <li>Web-App-Slam als gemeinsames Abschlussformat</li>
                                 </ul>
                             </div>
                         </div>
@@ -637,22 +823,23 @@
                 <div class="slide">
                     <div class="slide-content rev">
                         <div class="image-side">
-                            <span class="slide-meta">Kapitel II: Methoden & Praxis</span>
+                            <span class="slide-meta">Kapitel II: Was haben wir gemacht?</span>
                             <div class="image-container">
-                                <div class="image-box">[Bild: Digital History Workshop]</div>
+                                <div class="image-box">
+                                    <!-- PLATZHALTER: Hier den Link zum Bild "Digital History Workshop" einfügen -->
+                                    <img src="images/workshop_history.jpg" alt="Digital History Workshop">
+                                </div>
                             </div>
-                            <div class="image-caption">Abb. 4: Einblicke in den Workshop: KI im wissenschaftlichen Einsatz.</div>
-                            <button class="btn-deep-dive" data-title="Vertiefung: Personal Information Management" data-content="Für Historiker:innen bedeutet modernes PIM mehr als nur Literaturverwaltung. Durch KI-gestützte Tools können unstrukturierte Datenmengen aus Archiven (wie Scans, Briefe oder Notizen) effizienter kategorisiert und durchsucht werden.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
                             <h2>Was haben wir gemacht?</h2>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Übung: Digital History Workshop: KI & Personal Information Management für Historiker:innen</li>
-                                    <li>KI als Tool: Möglichkeiten für alternative Wissenspräsentations- und -vermittlungsformaten</li>
-                                    <li>Vibe Coding: generative Text-KI generiert den Code für unsere Idee einer Webapp</li>
-                                    <li>von der Idee über das Prompting zur Webapp (siehe Kapitel III)</li>
+                                    <li>Digital History Workshop: KI & PIM für Historiker:innen</li>
+                                    <li>KI als Tool for alternative Wissensvermittlung</li>
+                                    <li>Vibe Coding: generative KI erzeugt den Code</li>
+                                    <li>Von der Idee über das Prompting zur Webapp</li>
                                 </ul>
                             </div>
                         </div>
@@ -674,13 +861,14 @@
             <div class="story-container">
                 <div class="story-visuals">
                     <div class="sticky-image-box" id="story-image">
-                        [Screenshot: Erster Prompt]
+                        <!-- Initiales Bild für Story (wird per JS überschrieben) -->
+                        <img src="images/story_initial.jpg" alt="Entwicklung">
                     </div>
                     <div class="image-caption" id="story-caption">Quelle: Dokumentation der Entwicklungssession.</div>
                 </div>
 
                 <div class="story-content">
-                    <div class="story-step" data-image="[Screenshot: Der erste Vibe]" data-caption="Quelle: Initiales Designkonzept / Vibe-Check.">
+                    <div class="story-step" data-image="images/story_vision.jpg" data-caption="Quelle: Initiales Designkonzept / Vibe-Check.">
                         <h3>1. Die Vision / Der Vibe</h3>
                         <hr>
                         <p>Alles begann mit einer groben Skizze: Eine WebApp, die sich wie ein wissenschaftliches Dossier anfühlt.</p>
@@ -689,19 +877,19 @@ User: "Erstelle eine WebApp for einen Historiker-Vortrag..."
                         </div>
                     </div>
 
-                    <div class="story-step" data-image="[Screenshot: Debugging-Prozess]" data-caption="Quelle: Log-Protokoll der CSS-Anpassungen.">
+                    <div class="story-step" data-image="images/story_debug.jpg" data-caption="Quelle: Log-Protokoll der CSS-Anpassungen.">
                         <h3>2. Iteratives Design</h3>
                         <hr>
                         <p>Anpassung der Scroll-Richtungen und Layouts für maximale inhaltliche Wirkung.</p>
                     </div>
 
-                    <div class="story-step" data-image="[Screenshot: GSAP Integration]" data-caption="Quelle: GSAP API Dokumentation & Implementation.">
+                    <div class="story-step" data-image="images/story_gsap.jpg" data-caption="Quelle: GSAP API Dokumentation & Implementation.">
                         <h3>3. Die Technik</h3>
                         <hr>
                         <p>GSAP ScrollTrigger zur Steuerung der Aufmerksamkeit.</p>
                     </div>
 
-                    <div class="story-step" data-image="[Screenshot: Finale App]" data-caption="Quelle: Deployment der Live-Vorschau.">
+                    <div class="story-step" data-image="images/story_finale.jpg" data-caption="Quelle: Deployment der Live-Vorschau.">
                         <h3>4. Das Ergebnis</h3>
                         <hr>
                         <p>Ein hybrides Artefakt aus Geisteswissenschaft und moderner Webentwicklung.</p>
@@ -741,6 +929,15 @@ User: "Erstelle eine WebApp for einen Historiker-Vortrag..."
                     if (isIntroFinished) document.body.style.overflowY = 'auto';
                 } 
             });
+        }
+
+        /* --- Intro Pause Logik --- */
+        function toggleIntroPause() {
+            if (introTimeline) {
+                const isPaused = introTimeline.paused();
+                introTimeline.paused(!isPaused);
+                document.getElementById('btn-intro-pause').innerText = isPaused ? "Pause" : "Weiter";
+            }
         }
 
         document.querySelectorAll('.btn-deep-dive').forEach(btn => {
@@ -785,11 +982,12 @@ User: "Erstelle eine WebApp for einen Historiker-Vortrag..."
             introTimeline.to(".title-intro", { opacity: 1, y: 0, duration: 1 });
             introTimeline.to(".intro-authors", { opacity: 1, y: 0, duration: 1 }, "-=0.5");
             
+            // Button und Overlay ausblenden
+            introTimeline.to("#btn-intro-pause", { opacity: 0, duration: 0.5, onComplete: () => document.getElementById('btn-intro-pause').style.display = 'none' }, "+=1");
             introTimeline.to("#intro-overlay", {
                 yPercent: -100,
                 duration: 1.2,
-                ease: "expo.inOut",
-                delay: 1.5 
+                ease: "expo.inOut"
             });
         };
 
@@ -799,15 +997,12 @@ User: "Erstelle eine WebApp for einen Historiker-Vortrag..."
             for (let i = 0; i < numSlides; i++) snapPoints.push(i * stepSize);
             const threshold = stepSize * 0.1;
             for (let p of snapPoints) {
-                if (Math.abs(value - p) < threshold) {
-                    return p;
-                }
+                if (Math.abs(value - p) < threshold) return p;
             }
             return value;
         }
 
         function initScrollAnimations() {
-            // KAPITEL I (3 Folien)
             const c1Slides = 3;
             const c1Wrapper = document.getElementById("c1-wrapper");
             gsap.to(c1Wrapper, {
@@ -828,7 +1023,6 @@ User: "Erstelle eine WebApp for einen Historiker-Vortrag..."
                 }
             });
 
-            // KAPITEL II (5 Folien: Startet bei -80% und geht zurück auf 0)
             const c2Slides = 5;
             const c2Wrapper = document.getElementById("c2-wrapper");
             gsap.fromTo(c2Wrapper, 
@@ -852,7 +1046,6 @@ User: "Erstelle eine WebApp for einen Historiker-Vortrag..."
                 }
             );
 
-            // KAPITEL III (Vertical Story Scroller)
             const steps = gsap.utils.toArray(".story-step");
             const imageBox = document.getElementById("story-image");
             const captionBox = document.getElementById("story-caption");
@@ -867,14 +1060,15 @@ User: "Erstelle eine WebApp for einen Historiker-Vortrag..."
                             steps.forEach(s => s.classList.remove("active"));
                             step.classList.add("active");
                             
-                            const newImageText = step.getAttribute("data-image");
+                            // Holt den Link aus dem data-image Attribut
+                            const newImageUrl = step.getAttribute("data-image");
                             const newCaptionText = step.getAttribute("data-caption");
-
+                            
                             gsap.to([imageBox, captionBox], {
-                                opacity: 0,
-                                duration: 0.2,
+                                opacity: 0, duration: 0.2,
                                 onComplete: () => {
-                                    imageBox.innerText = newImageText;
+                                    // Erstellt ein img Element statt nur Text
+                                    imageBox.innerHTML = `<img src="${newImageUrl}" alt="Step ${i}">`;
                                     captionBox.innerText = newCaptionText;
                                     gsap.to([imageBox, captionBox], { opacity: 1, duration: 0.2 });
                                 }
@@ -883,6 +1077,92 @@ User: "Erstelle eine WebApp for einen Historiker-Vortrag..."
                     }
                 });
             });
+        }
+
+        /* --- Animations-Logik für Kapitel II --- */
+        let comparisonTl;
+
+        function updateAnimButtons() {
+            const btn = document.getElementById('btn-anim-pause');
+            if (!comparisonTl) { btn.disabled = true; return; }
+            btn.disabled = false;
+            btn.innerText = comparisonTl.paused() ? "Weiter" : "Pause";
+        }
+
+        function toggleAnimPause() {
+            if (comparisonTl) {
+                comparisonTl.paused(!comparisonTl.paused());
+                updateAnimButtons();
+            }
+        }
+
+        function resetComparison() {
+            if (comparisonTl) comparisonTl.kill();
+            comparisonTl = null;
+            gsap.set(".frame-part", { opacity: 0 });
+            gsap.set(".tool-icon", { opacity: 0, rotation: 0, x: 0, y: 0 });
+            gsap.set(".paint-stroke", { xPercent: -100, opacity: 1 });
+            document.getElementById('status-conv').innerText = "Bereit";
+            document.getElementById('status-ai').innerText = "Bereit";
+            document.getElementById('status-conv').style.color = "";
+            document.getElementById('status-ai').style.color = "#4f46e5";
+            updateAnimButtons();
+        }
+
+        function animateComparison() {
+            resetComparison();
+            comparisonTl = gsap.timeline({ onUpdate: updateAnimButtons, onComplete: updateAnimButtons });
+            comparisonTl.timeScale(0.5);
+
+            comparisonTl.to("#status-conv", { duration: 0.1, onStart: () => { document.getElementById('status-conv').innerText = "Rahmenbau..."; }});
+            comparisonTl.to("#hammer-conv", { opacity: 1, duration: 0.1 });
+            const sides = ["#c-ft", "#c-fr", "#c-fb", "#c-fl"];
+            const hammerPos = [{x:80,y:0}, {x:170,y:100}, {x:80,y:210}, {x:0,y:100}];
+            sides.forEach((side, i) => {
+                comparisonTl.to("#hammer-conv", { x: hammerPos[i].x, y: hammerPos[i].y, duration: 0.4 });
+                comparisonTl.to("#hammer-conv", { rotation: -30, duration: 0.1, repeat: 1, yoyo: true });
+                comparisonTl.to(side, { opacity: 1, duration: 0.1 });
+            });
+            comparisonTl.to("#hammer-conv", { opacity: 0, duration: 0.2 });
+            comparisonTl.to("#status-conv", { duration: 0.3, onStart: () => { document.getElementById('status-conv').innerText = "Farbauftrag..."; }});
+            comparisonTl.to("#brush-conv", { opacity: 1, duration: 0.1 });
+            const strokes = [".s1", ".s2", ".s3", ".s4"];
+            strokes.forEach((stroke, i) => {
+                const yPos = 15 + (i * 45);
+                comparisonTl.to("#brush-conv", { x: 10, y: yPos, duration: 0.2 });
+                comparisonTl.to("#brush-conv", { x: 160, duration: 0.6, ease: "none" });
+                comparisonTl.to(stroke, { xPercent: 0, duration: 0.6, ease: "none" }, "-=0.6");
+            });
+            comparisonTl.to("#brush-conv", { opacity: 0, duration: 0.2 });
+            comparisonTl.to("#status-conv", { duration: 0.1, onStart: () => { 
+                const el = document.getElementById('status-conv'); el.innerText = "Vollendet"; el.style.color = "#059669"; 
+            }});
+
+            comparisonTl.addLabel("kiStart", 0.5);
+            comparisonTl.to("#status-ai", { duration: 0.1, onStart: () => { document.getElementById('status-ai').innerText = "Simultan..."; }}, "kiStart");
+            comparisonTl.to(["#hammer-ai", "#brush-ai"], { opacity: 1, duration: 0.1 }, "kiStart");
+            comparisonTl.to("#hammer-ai", { x: 80, y: 0, duration: 0.5 }, "kiStart+=0.2");
+            comparisonTl.to("#hammer-ai", { rotation: -30, duration: 0.1, repeat: 1, yoyo: true }, "kiStart+=0.7");
+            comparisonTl.to("#a-ft", { opacity: 1, duration: 0.1 }, "kiStart+=0.8");
+            comparisonTl.to("#brush-ai", { x: 10, y: 15, duration: 0.3 }, "kiStart+=0.2");
+            comparisonTl.to("#brush-ai", { x: 160, duration: 0.8 }, "kiStart+=0.5");
+            comparisonTl.to(".sa1", { xPercent: 0, duration: 0.8 }, "kiStart+=0.5");
+            comparisonTl.to("#hammer-ai", { x: 170, y: 100, duration: 0.5 }, "kiStart+=1.3");
+            comparisonTl.to("#hammer-ai", { rotation: -30, duration: 0.1, repeat: 1, yoyo: true }, "kiStart+=1.8");
+            comparisonTl.to(["#a-fr", "#a-left"], { opacity: 1, duration: 0.1 }, "kiStart+=1.9");
+            comparisonTl.to("#brush-ai", { x: 10, y: 65, duration: 0.3 }, "kiStart+=1.3");
+            comparisonTl.to("#brush-ai", { x: 160, y: 110, duration: 0.9 }, "kiStart+=1.6");
+            comparisonTl.to([".sa2", ".sa3"], { xPercent: 0, duration: 0.9 }, "kiStart+=1.6");
+            comparisonTl.to("#hammer-ai", { x: 80, y: 210, duration: 0.5 }, "kiStart+=2.5");
+            comparisonTl.to("#hammer-ai", { rotation: -30, duration: 0.1, repeat: 1, yoyo: true }, "kiStart+=3.0");
+            comparisonTl.to("#a-fb", { opacity: 1, duration: 0.1 }, "kiStart+=3.1");
+            comparisonTl.to("#brush-ai", { x: 10, y: 155, duration: 0.3 }, "kiStart+=2.5");
+            comparisonTl.to("#brush-ai", { x: 160, duration: 0.7 }, "kiStart+=2.8");
+            comparisonTl.to(".sa4", { xPercent: 0, duration: 0.7 }, "kiStart+=2.8");
+            comparisonTl.to(["#hammer-ai", "#brush-ai"], { opacity: 0, duration: 0.5 }, "kiStart+=3.6");
+            comparisonTl.to("#status-ai", { duration: 0.1, onStart: () => { 
+                const el = document.getElementById('status-ai'); el.innerText = "Vollendet"; el.style.color = "#4f46e5"; 
+            }}, "kiStart+=3.6");
         }
     </script>
 </body>
