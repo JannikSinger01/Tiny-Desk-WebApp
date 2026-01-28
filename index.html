@@ -177,7 +177,6 @@
             color: var(--text);
         }
 
-        /* Quadratische Punkte als Standard */
         .presentation-notes li::before {
             content: "";
             position: absolute;
@@ -188,7 +187,6 @@
             background-color: var(--text);
         }
 
-        /* Pfeil-Bullet als Ausnahme */
         .presentation-notes li.pfeil-bullet::before {
             content: "→";
             background-color: transparent;
@@ -484,7 +482,7 @@
                     </div>
                 </div>
 
-                <!-- Slide 1.3: AKTUALISIERT -->
+                <!-- Slide 1.3 -->
                 <div class="slide">
                     <div class="slide-content">
                         <div class="image-side">
@@ -713,7 +711,7 @@
                         <hr>
                         <p>Alles begann mit einer groben Skizze: Eine WebApp, die sich wie ein wissenschaftliches Dossier anfühlt.</p>
                         <div class="code-snippet">
-User: "Erstelle eine WebApp für einen Historiker-Vortrag..."
+User: "Erstelle eine WebApp for einen Historiker-Vortrag..."
                         </div>
                     </div>
 
@@ -820,7 +818,33 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag..."
             });
         };
 
+        /**
+         * Custom Snapping Logic:
+         * Snaps only if the progress is within a certain threshold (last 10% of a slide).
+         * @param {number} value - The current progress (0 to 1).
+         * @param {number} numSlides - Total number of slides in section.
+         * @returns {number} - The value to snap to, or original value.
+         */
+        function conditionalSnap(value, numSlides) {
+            const snapPoints = [];
+            const stepSize = 1 / (numSlides - 1);
+            for (let i = 0; i < numSlides; i++) snapPoints.push(i * stepSize);
+
+            // Threshold: 10% of one slide's width in the progress scale (0-1)
+            const threshold = stepSize * 0.1;
+
+            for (let p of snapPoints) {
+                if (Math.abs(value - p) < threshold) {
+                    return p;
+                }
+            }
+            return value; // Don't snap if too far away
+        }
+
         function initScrollAnimations() {
+            const numSlides = 5;
+
+            // KAPITEL I
             const c1Wrapper = document.getElementById("c1-wrapper");
             gsap.to(c1Wrapper, {
                 xPercent: -80,
@@ -828,13 +852,19 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag..."
                 scrollTrigger: {
                     trigger: "#c1-trigger",
                     pin: true,
-                    scrub: 1,
-                    snap: 1 / 4,
+                    scrub: true,
                     start: "top top",
-                    end: () => "+=" + (window.innerWidth * 4)
+                    end: () => "+=" + (window.innerWidth * 4),
+                    snap: {
+                        snapTo: (val) => conditionalSnap(val, numSlides),
+                        duration: { min: 0.2, max: 0.5 },
+                        delay: 0.1,
+                        ease: "power1.inOut"
+                    }
                 }
             });
 
+            // KAPITEL II
             const c2Wrapper = document.getElementById("c2-wrapper");
             gsap.fromTo(c2Wrapper, 
                 { xPercent: -80 }, 
@@ -844,14 +874,20 @@ User: "Erstelle eine WebApp für einen Historiker-Vortrag..."
                     scrollTrigger: {
                         trigger: "#c2-trigger",
                         pin: true,
-                        scrub: 1,
-                        snap: 1 / 4,
+                        scrub: true,
                         start: "top top",
-                        end: () => "+=" + (window.innerWidth * 4)
+                        end: () => "+=" + (window.innerWidth * 4),
+                        snap: {
+                            snapTo: (val) => conditionalSnap(val, numSlides),
+                            duration: { min: 0.2, max: 0.5 },
+                            delay: 0.1,
+                            ease: "power1.inOut"
+                        }
                     }
                 }
             );
 
+            // KAPITEL III (Vertical Story Scroller)
             const steps = gsap.utils.toArray(".story-step");
             const imageBox = document.getElementById("story-image");
             const captionBox = document.getElementById("story-caption");
