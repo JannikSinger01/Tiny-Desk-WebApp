@@ -233,7 +233,7 @@
 
         /* --- Buttons & Modals --- */
         .btn-deep-dive {
-            margin-top: auto; 
+            margin-top: 20px; 
             margin-bottom: 40px;
             background: transparent;
             color: var(--accent);
@@ -307,9 +307,10 @@
             text-align: justify;
         }
 
-        /* Anpassung: Kein Rahmen, kein Hintergrund, volle Breite */
+        /* Verkleinerung der Bilder: Max-Height eingeführt */
         .image-box {
             width: 100%;
+            max-height: 50vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -317,9 +318,11 @@
         }
 
         .image-box img {
-            width: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
             height: auto;
-            object-fit: cover;
+            object-fit: contain;
             display: block;
         }
 
@@ -364,10 +367,10 @@
             padding: 50px;
         }
 
-        /* Anpassung für Story-Visuals: Rahmen entfernt */
+        /* Verkleinerung der Story-Bilder */
         .sticky-image-box {
             width: 100%;
-            max-height: 80vh;
+            max-height: 65vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -377,7 +380,9 @@
         }
 
         .sticky-image-box img {
-            width: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
             height: auto;
             object-fit: contain;
             display: block;
