@@ -307,14 +307,14 @@
             text-align: justify;
         }
 
-        /* Verkleinerung der Bilder: Max-Height eingeführt */
+        /* Optimierung: Bilder verkleinern, damit sie ganz reinpassen, aber Platz nach unten nutzen */
         .image-box {
             width: 100%;
-            max-height: 50vh;
+            max-height: 55vh; /* Erhöht für mehr Spielraum nach unten */
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Oben ausrichten */
             justify-content: center;
-            overflow: hidden;
+            overflow: visible; /* Verhindert Abschneiden */
         }
 
         .image-box img {
@@ -322,12 +322,12 @@
             max-height: 100%;
             width: auto;
             height: auto;
-            object-fit: contain;
+            object-fit: contain; /* Bild wird im Ganzen skaliert */
             display: block;
         }
 
         .image-caption {
-            margin-top: 10px;
+            margin-top: 15px;
             font-size: 0.8rem;
             color: var(--caption);
             font-style: italic;
@@ -367,16 +367,16 @@
             padding: 50px;
         }
 
-        /* Verkleinerung der Story-Bilder */
+        /* Optimierung Story-Bilder */
         .sticky-image-box {
             width: 100%;
-            max-height: 65vh;
+            max-height: 75vh; /* Vergrößert für bessere Ausnutzung */
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             transition: opacity 0.5s ease;
-            overflow: hidden;
+            overflow: visible;
         }
 
         .sticky-image-box img {
