@@ -82,10 +82,13 @@
 
         .horizontal-wrapper {
             display: flex;
-            width: 500%; 
             height: 100vh;
             will-change: transform;
         }
+
+        /* Spezifische Breiten für die Kapitel */
+        #c1-wrapper { width: 300%; }
+        #c2-wrapper { width: 500%; }
 
         .slide {
             width: 100vw;
@@ -463,7 +466,7 @@
                             <div class="image-caption">Abb. 2: Biografische Rekonstruktion des Täters.</div>
                             <button class="btn-deep-dive" 
                                 data-title="Vertiefung: Rekonstruktion von Täterbiografien" 
-                                data-content="Die Identifikation von Jakobus Onnen ist ein Paradebeispiel für die Kombination von KI-gestützter Bildanalyse und klassischer Archivrecherche. Jürgen Matthäus konnte durch den Abgleich von biometrischen Merkmalen auf dem historischen Foto mit Personalakten der SS und der Ordnungspolizei die Identität zweifelsfrei klären. Dies unterstreicht die Bedeutung der KI als Heuristik-Tool, das Hinweise liefert, die dann hermeneutisch und quellenkritisch abgesichert werden müssen.">weitere Informationen</button>
+                                data-content="Die identifikation von Jakobus Onnen ist ein Paradebeispiel für die Kombination von KI-gestützter Bildanalyse und klassischer Archivrecherche. Jürgen Matthäus konnte durch den Abgleich von biometrischen Merkmalen auf dem historischen Foto mit Personalakten der SS und der Ordnungspolizei die Identität zweifelsfrei klären. Dies unterstreicht die Bedeutung der KI als Heuristik-Tool, das Hinweise liefert, die dann hermeneutisch und quellenkritisch abgesichert werden müssen.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
                             <h2>"Der letzte Jude von Winniza" <span class="subtitle">eine Rekonstruktion</span></h2>
@@ -507,54 +510,6 @@
                         </div>
                     </div>
                 </div>
-                
-                <!-- Slide 1.4 -->
-                <div class="slide">
-                    <div class="slide-content">
-                        <div class="image-side">
-                            <span class="slide-meta">Kapitel I: Forschungserfolge</span>
-                            <div class="image-container">
-                                <div class="image-box">[Beweiskraft]</div>
-                            </div>
-                            <button class="btn-deep-dive" data-title="Statistische Evidenz vs. Hermeneutik" data-content="Historische Beweiskraft beruhte traditionell auf der Plausibilität der Erzählung. KI führt nun die 'wahrscheinlichste Deutung' als mathematischen Wert ein, was eine Neudefinition des 'historischen Fakts' erfordert.">weitere Informationen</button>
-                        </div>
-                        <div class="text-side">
-                            <h2>Beweiskraft</h2>
-                            <hr>
-                            <div class="presentation-notes">
-                                <ul>
-                                    <li>Statistische Wahrscheinlichkeit als Hilfsmittel.</li>
-                                    <li>Validierung durch algorithmische Vergleiche.</li>
-                                    <li>Grenzen der mathematischen Beweisführung.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slide 1.5 -->
-                <div class="slide">
-                    <div class="slide-content">
-                        <div class="image-side">
-                            <span class="slide-meta">Kapitel I: Forschungserfolge</span>
-                            <div class="image-container">
-                                <div class="image-box">[Ergebnis]</div>
-                            </div>
-                            <button class="btn-deep-dive" data-title="Historiographische Konsequenzen" data-content="Die Identifikation von Tätern verändert unsere Perspektive auf die soziale Struktur der Tatbeteiligten und die Rekonstruktion von Verbrechenskomplexen.">weitere Informationen</button>
-                        </div>
-                        <div class="text-side">
-                            <h2>Ergebnis</h2>
-                            <hr>
-                            <div class="presentation-notes">
-                                <ul>
-                                    <li>Schließung historischer Lücken.</li>
-                                    <li>Potenzial für zukünftige Forschungen.</li>
-                                    <li>Konsequenzen für die Täterforschung.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
             </div>
         </section>
@@ -563,25 +518,25 @@
         <section id="c2-trigger" class="horizontal-section">
             <div class="horizontal-wrapper" id="c2-wrapper">
                 
-                <!-- Slide 2.1 -->
+                <!-- Slide 2.1 (Zuletzt sichtbar) -->
                 <div class="slide">
                     <div class="slide-content rev">
                         <div class="image-side">
-                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                            <span class="slide-meta">Kapitel II: Methoden & Praxis</span>
                             <div class="image-container">
-                                <div class="image-box">[Bild: Blackbox-Symbolik]</div>
+                                <div class="image-box">[Bild: Hermeneutik]</div>
                             </div>
-                            <div class="image-caption">Abb. 6: Algorithmische Blackbox. Quelle: CC-BY 4.0.</div>
-                            <button class="btn-deep-dive" data-title="Kritik der algorithmischen Vernunft" data-content="Ohne Nachvollziehbarkeit verliert die Geschichtswissenschaft ihre Basis. Explainable AI (XAI) versucht, diese Prozesse durch Visualisierungen wieder sichtbar zu machen.">weitere Informationen</button>
+                            <div class="image-caption">Abb. 8: Digitale Quellenkritik.</div>
+                            <button class="btn-deep-dive" data-title="Quellenkritik 2.0" data-content="Die Zukunft liegt in der 'Distant Reading' Methode gepaart mit 'Close Reading'. Ein hybrider Ansatz ist die Antwort auf die digitale Flut.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <h2>Die algorithmische Blackbox</h2>
+                            <h2>Hermeneutik 2.0</h2>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Problem: Wie kommen Algorithmen zu ihren Schlüssen?</li>
-                                    <li>Mangelnde Nachvollziehbarkeit widerspricht wissenschaftlichen Standards.</li>
-                                    <li>Forderung nach "Explainable AI" in der Historie.</li>
+                                    <li>Hybride Forschungsmethodik (Man + Machine).</li>
+                                    <li>Quellenkritik im Zeitalter der KI-Manipulation.</li>
+                                    <li>Entwicklung neuer digitaler Standards.</li>
                                 </ul>
                             </div>
                         </div>
@@ -594,19 +549,18 @@
                         <div class="image-side">
                             <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
                             <div class="image-container">
-                                <div class="image-box">[Bild: Halluzinations-Beispiel]</div>
+                                <div class="image-box">[Kritik]</div>
                             </div>
-                            <div class="image-caption">Abb. 7: KI-Fehlzitate. Quelle: KI-Audit.</div>
-                            <button class="btn-deep-dive" data-title="Phänomenologie der Halluzination" data-content="Large Language Models optimieren auf Wahrscheinlichkeit, nicht auf Wahrheit. Dies führt zu 'Fake Citations', die unentdeckt in den wissenschaftlichen Diskurs einfließen können.">weitere Informationen</button>
+                            <button class="btn-deep-dive" data-title="Das Ende der Geschichte?" data-content="Datenfetischismus droht die qualitative Analyse zu verdrängen. Historisches Verstehen erfordert mehr als reine Mustererkennung.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <h2>Digitale Halluzinationen</h2>
+                            <h2>Methodenkritik</h2>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Generative KI neigt zur Erfindung plausibel klingender Fakten.</li>
-                                    <li>Gefahr von "Fake Citations" in Publikationen.</li>
-                                    <li>Notwendigkeit massiver Fact-Checking-Infrastrukturen.</li>
+                                    <li>Mustererkennung vs. Kontextanalyse.</li>
+                                    <li>Grenzen des rein Quantitativen in der Hermeneutik.</li>
+                                    <li>Gefahr des technischen Reduktionismus.</li>
                                 </ul>
                             </div>
                         </div>
@@ -643,42 +597,45 @@
                         <div class="image-side">
                             <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
                             <div class="image-container">
-                                <div class="image-box">[Kritik]</div>
+                                <div class="image-box">[Bild: Halluzinations-Beispiel]</div>
                             </div>
-                            <button class="btn-deep-dive" data-title="Das Ende der Geschichte?" data-content="Datenfetischismus droht die qualitative Analyse zu verdrängen. Historisches Verstehen erfordert mehr als reine Mustererkennung.">weitere Informationen</button>
+                            <div class="image-caption">Abb. 7: KI-Fehlzitate. Quelle: KI-Audit.</div>
+                            <button class="btn-deep-dive" data-title="Phänomenologie der Halluzination" data-content="Large Language Models optimieren auf Wahrscheinlichkeit, nicht auf Wahrheit. Dies führt zu 'Fake Citations', die unentdeckt in den wissenschaftlichen Diskurs einfließen können.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <h2>Methodenkritik</h2>
+                            <h2>Digitale Halluzinationen</h2>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Mustererkennung vs. Kontextanalyse.</li>
-                                    <li>Grenzen des rein Quantitativen in der Hermeneutik.</li>
-                                    <li>Gefahr des technischen Reduktionismus.</li>
+                                    <li>Generative KI neigt zur Erfindung plausibel klingender Fakten.</li>
+                                    <li>Gefahr von "Fake Citations" in Publikationen.</li>
+                                    <li>Notwendigkeit massiver Fact-Checking-Infrastrukturen.</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Slide 2.5 -->
+                <!-- Slide 2.5 (Zuerst sichtbar nach Kap. I) -->
                 <div class="slide">
                     <div class="slide-content rev">
                         <div class="image-side">
-                            <span class="slide-meta">Kapitel II: Kritische Reflexion</span>
+                            <span class="slide-meta">Kapitel II: Methoden & Praxis</span>
                             <div class="image-container">
-                                <div class="image-box">[Hermeneutik]</div>
+                                <div class="image-box">[Bild: Digital History Workshop]</div>
                             </div>
-                            <button class="btn-deep-dive" data-title="Quellenkritik 2.0" data-content="Die Zukunft liegt in der 'Distant Reading' Methode gepaart mit 'Close Reading'. Ein hybrider Ansatz ist die Antwort auf die digitale Flut.">weitere Informationen</button>
+                            <div class="image-caption">Abb. 4: Einblicke in den Workshop: KI im wissenschaftlichen Einsatz.</div>
+                            <button class="btn-deep-dive" data-title="Vertiefung: Personal Information Management" data-content="Für Historiker:innen bedeutet modernes PIM mehr als nur Literaturverwaltung. Durch KI-gestützte Tools können unstrukturierte Datenmengen aus Archiven (wie Scans, Briefe oder Notizen) effizienter kategorisiert und durchsucht werden.">weitere Informationen</button>
                         </div>
                         <div class="text-side">
-                            <h2>Hermeneutik 2.0</h2>
+                            <h2>Was haben wir gemacht?</h2>
                             <hr>
                             <div class="presentation-notes">
                                 <ul>
-                                    <li>Hybride Forschungsmethodik (Man + Machine).</li>
-                                    <li>Quellenkritik im Zeitalter der KI-Manipulation.</li>
-                                    <li>Entwicklung neuer digitaler Standards.</li>
+                                    <li>Übung: Digital History Workshop: KI & Personal Information Management für Historiker:innen</li>
+                                    <li>KI als Tool: Möglichkeiten für alternative Wissenspräsentations- und -vermittlungsformaten</li>
+                                    <li>Vibe Coding: generative Text-KI generiert den Code für unsere Idee einer Webapp</li>
+                                    <li>von der Idee über das Prompting zur Webapp (siehe Kapitel III)</li>
                                 </ul>
                             </div>
                         </div>
@@ -818,45 +775,34 @@ User: "Erstelle eine WebApp for einen Historiker-Vortrag..."
             });
         };
 
-        /**
-         * Custom Snapping Logic:
-         * Snaps only if the progress is within a certain threshold (last 10% of a slide).
-         * @param {number} value - The current progress (0 to 1).
-         * @param {number} numSlides - Total number of slides in section.
-         * @returns {number} - The value to snap to, or original value.
-         */
         function conditionalSnap(value, numSlides) {
             const snapPoints = [];
             const stepSize = 1 / (numSlides - 1);
             for (let i = 0; i < numSlides; i++) snapPoints.push(i * stepSize);
-
-            // Threshold: 10% of one slide's width in the progress scale (0-1)
             const threshold = stepSize * 0.1;
-
             for (let p of snapPoints) {
                 if (Math.abs(value - p) < threshold) {
                     return p;
                 }
             }
-            return value; // Don't snap if too far away
+            return value;
         }
 
         function initScrollAnimations() {
-            const numSlides = 5;
-
-            // KAPITEL I
+            // KAPITEL I (3 Folien: 0 bis -66%)
+            const c1Slides = 3;
             const c1Wrapper = document.getElementById("c1-wrapper");
             gsap.to(c1Wrapper, {
-                xPercent: -80,
+                xPercent: -66.666, 
                 ease: "none",
                 scrollTrigger: {
                     trigger: "#c1-trigger",
                     pin: true,
                     scrub: true,
                     start: "top top",
-                    end: () => "+=" + (window.innerWidth * 4),
+                    end: () => "+=" + (window.innerWidth * (c1Slides - 1)),
                     snap: {
-                        snapTo: (val) => conditionalSnap(val, numSlides),
+                        snapTo: (val) => conditionalSnap(val, c1Slides),
                         duration: { min: 0.2, max: 0.5 },
                         delay: 0.1,
                         ease: "power1.inOut"
@@ -864,21 +810,22 @@ User: "Erstelle eine WebApp for einen Historiker-Vortrag..."
                 }
             });
 
-            // KAPITEL II
+            // KAPITEL II (5 Folien: Startet bei -80% und geht zurück auf 0)
+            const c2Slides = 5;
             const c2Wrapper = document.getElementById("c2-wrapper");
             gsap.fromTo(c2Wrapper, 
-                { xPercent: -80 }, 
+                { xPercent: -80 }, // Startet ganz rechts (Slide 2.5)
                 {
-                    xPercent: 0, 
+                    xPercent: 0,    // Endet ganz links (Slide 2.1)
                     ease: "none",
                     scrollTrigger: {
                         trigger: "#c2-trigger",
                         pin: true,
                         scrub: true,
                         start: "top top",
-                        end: () => "+=" + (window.innerWidth * 4),
+                        end: () => "+=" + (window.innerWidth * (c2Slides - 1)),
                         snap: {
-                            snapTo: (val) => conditionalSnap(val, numSlides),
+                            snapTo: (val) => conditionalSnap(val, c2Slides),
                             duration: { min: 0.2, max: 0.5 },
                             delay: 0.1,
                             ease: "power1.inOut"
