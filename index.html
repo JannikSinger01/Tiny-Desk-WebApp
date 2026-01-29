@@ -215,9 +215,33 @@
             flex-shrink: 0; /* Darf nicht gestaucht werden */
         }
 
-        .btn-deep-dive {
+        /* Wrapper für Button und Pfeil */
+        .deep-dive-wrapper {
+            display: flex;
+            align-items: center;
             margin-top: 15px; 
-            margin-bottom: 20px; /* Etwas weniger Margin unten für Sicherheit */
+            margin-bottom: 20px;
+            flex-shrink: 0;
+            width: fit-content;
+            align-self: flex-start;
+        }
+
+        .arrow-anim {
+            font-size: 2rem;
+            margin-right: 15px;
+            color: var(--text);
+            animation: bounceRight 1.5s infinite ease-in-out;
+            line-height: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        @keyframes bounceRight {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+
+        .btn-deep-dive {
             background: transparent;
             color: var(--accent);
             border: 1px solid var(--border);
@@ -228,9 +252,6 @@
             letter-spacing: 0.05em;
             cursor: pointer;
             transition: all 0.3s ease;
-            width: fit-content;
-            align-self: flex-start;
-            flex-shrink: 0; /* Darf nicht gestaucht werden */
         }
 
         /* --- Schriftgrößen angepasst für bessere Lesbarkeit --- */
@@ -288,10 +309,11 @@
             font-size: 1.6rem; /* Größerer Pfeil */
         }
 
-        .slide-content.rev .btn-deep-dive {
+        .slide-content.rev .deep-dive-wrapper {
             align-self: flex-end;
         }
-
+        
+        /* Fallback falls der Button mal nicht im Wrapper ist (Legacy support) */
         .btn-deep-dive:hover {
             border-color: #000;
             color: #000;
@@ -345,6 +367,43 @@
             line-height: 1.7;
             text-align: justify;
         }
+
+        /* --- Hinweis für Kapitel 3 --- */
+        .chapter-nav-hint {
+            position: absolute;
+            /* WICHTIG: Erhöhter Bottom-Wert, damit der Pfeil über dem "Scrollen"-Text liegt */
+            bottom: 80px; 
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 1; /* Volle Sichtbarkeit */
+            animation: bounceDown 2s infinite ease-in-out;
+            pointer-events: none;
+            z-index: 60; /* Höherer Z-Index als .scroll-indicator */
+        }
+
+        .chapter-nav-hint span.text {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 5px;
+            background: rgba(255, 255, 255, 0.8); /* Leichter Hintergrund für Lesbarkeit */
+            padding: 2px 5px;
+        }
+
+        .chapter-nav-hint span.icon {
+            font-size: 2rem; /* Etwas größerer Pfeil */
+            font-weight: bold;
+        }
+
+        @keyframes bounceDown {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-10px) translateX(-50%); }
+            60% { transform: translateY(-5px) translateX(-50%); }
+        }
+
 
         /* --- Kapitel 3: Story-Scroller --- */
         #part-3 {
@@ -695,8 +754,13 @@
                                 </div>
                             </div>
                             <div class="image-caption">Abb. 3: Ergebnis der KI-Gesichtserkennung</div>
-                            <!-- Aktualisierter Button mit Data-Key für langen Inhalt -->
-                            <button class="btn-deep-dive" data-title="Hintergrund & Analyse" data-key="winniza-deep">weitere Informationen</button>
+                            
+                            <!-- NEU: Wrapper für Pfeil-Animation und Button -->
+                            <div class="deep-dive-wrapper">
+                                <span class="arrow-anim">→</span>
+                                <button class="btn-deep-dive" data-title="Hintergrund & Analyse" data-key="winniza-deep">weitere Informationen</button>
+                            </div>
+
                         </div>
                         <div class="text-side">
                             <h2>"Der letzte Jude von Winniza" <span class="subtitle">eine Analyse</span></h2>
@@ -783,6 +847,13 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- HINWEIS: ANIMIERTER PFEIL ZU KAPITEL 3 (JETZT HIER AUF DER FAZIT FOLIE) -->
+                    <div class="chapter-nav-hint">
+                        <span class="text">Weiter zu Kapitel III</span>
+                        <span class="icon">↓</span>
+                    </div>
+
                 </div>
 
                 <!-- Slide 2.2 -->
@@ -892,6 +963,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- PFEIL HIER ENTFERNT -->
                 </div>
 
             </div>
