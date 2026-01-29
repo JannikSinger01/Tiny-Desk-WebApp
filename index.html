@@ -662,7 +662,8 @@
                                 </div>
                             </div>
                             <div class="image-caption">Abb. 3: Ergebnis der KI-Gesichtserkennung</div>
-                            <button class="btn-deep-dive" data-title="Interdisziplinäre Methodik" data-content="Die Identifikation basierte auf einem dreistufigen Prozess: 1. Algorithmische Vorauswahl durch biometrischen Abgleich, 2. Erschließung privater Nachlässe durch mediale Aufmerksamkeit, 3. Hermeneutische Verifizierung durch Experten-Peer-Review. Erst die Verzahnung von Informatik, Forensik und Geschichtswissenschaft ermöglichte diesen Durchbruch.">weitere Informationen</button>
+                            <!-- Aktualisierter Button mit Data-Key für langen Inhalt -->
+                            <button class="btn-deep-dive" data-title="Hintergrund & Analyse" data-key="winniza-deep">weitere Informationen</button>
                         </div>
                         <div class="text-side">
                             <h2>"Der letzte Jude von Winniza" <span class="subtitle">eine Analyse</span></h2>
@@ -929,9 +930,41 @@ User: "Sei ein Experte auf dem Gebiet des Programmierens und übernimm das Vibe-
         const modalContent = document.getElementById('modal-content');
         const closeModal = document.getElementById('close-modal');
 
+        // Datenbank für "Deep Dive" Inhalte, um HTML sauber zu halten
+        const deepDiveContents = {
+            "winniza-deep": `
+                <p>Das Bild „Der letzte Jude von Winniza“ ist weltbekannt. Es trat zum ersten Mal bei dem Eichmann-Prozess von 1961 auf und entwickelte sich zu einem Symbolbild des Holocausts. Auf dem Bild kann man eine, auf dem Boden knieende Person entdecken, die ihren Blick von der Kamera nach oben abwendet. Die Person, ein bis dato unbekannter Mann jüdischen Glaubens, kniet vor einem Massengrab, in das schon zahlreiche ermordete Personen hineingeworfen wurden. Dank des Fundes eines Kriegstagebuchs konnte die Szene rekonstruiert werden:</p>
+                
+                <blockquote style="border-left: 3px solid #ccc; margin: 20px; padding-left: 15px; font-style: italic; color: #555;">
+                „Ein Kamerad kam in Begleitung eines zweiten Kameraden heute an der Zitadelle von Berditschew vorbei. Dabei kam er gerade zu einer Hinrichtung von Juden zurecht. ... der Jude, dessen Name verlesen wurde, trat aus der Gruppe der Verurteilten an den Rand der Grube, in der sich bereits die Leichen der vor ihm Erschossenen befanden. Er musste sich derart niederknien dass sich seine Hände auf den Grubenrand stützen. Darauf trat ein SS-Mann mit der Pistole hinter ihn und gab ihm einen Schuss in den unteren Hinterkopf, den sogenannten Genickschuss, worauf der Körper in die Grube kugelte. Darauf sprang ein anderer SS-Mann mit einer Maschinenpistole herzu und gab noch einige Schüsse auf den Hingerichteten ab. Dann kam der Nächste an die Reihe. Einer der Verurteilten sprang gleich in die Grube, worauf er erst von dem Mann mit der Maschinenpistole herumgejagt und erschossen werden musste. Er handelte so an 70 Juden und einem Arier, welch letzterer Politischer Kommissar-Aspirant war. Die Juden waren teils weiter vorne aufgegriffen worden, teils waren sie von den Ukrainern angegeben worden. Auch ein deutscher Emigrant befand sich unter ihnen. Nebenan schaufelten Ukrainer bereits das nächste Grab, und da es nicht rasch genug fertig wurde, kommandierte man von in der Nähe befindlichen russischen Gefangenen 4 Mann dazu. Da diese gerade beim Nachtmahl saßen, wollten sie erst nicht recht an die Arbeit. Als sie jedoch hörten, dass es sich um die Ausschachtung einer Grube für zu erschiessende Juden handele, liessen sie sogleich das Essen stehen und gingen mit Begeisterung an die Arbeit. Auch die Ukrainer schwangen begeistert Pickel und Schaufel. Gestern wurden gegen 180 Juden erschossen, vorgestern rund 300.“
+                </blockquote>
+
+                <p>Der Schütze war lange Zeit unbekannt. Erst nachdem der Historiker Jürgen Matthäus, der sich auf die Identifizierung von Opfern des Holocausts spezialisiert hat, 2023 durch dieses Tagebuch den Tatort der ukrainischen Stadt Berdytschiw zuordnen konnte und darüber in den deutschen Medien berichtet wurde, meldete sich ein entfernter Verwandter des Mörders. Er äußerte seinen schon länger bestehenden Verdacht, dass der Onkel seiner Frau in Kriegsverbrechen verstrickt sein könnte. Somit stellte er Matthäus einige Bilder und anderes Quellenmaterial zur Verfügung. Matthäus wertete sofort die neuen Funde aus.</p>
+
+                <p>Dabei nahm er sich verschiedene Expert:innen zur Hilfe. Dank eines interdisziplinären Forschungsprojekts entschlüsselten Matthäus, ein ehemaliger Kriminalbeamter, ein privates Rechercheteam und KI-Expert:innen die Identität des Täters. Außerdem verwendete die Forschungsgruppe eine digitale Gesichtserkennung, um die Bilder auszuwerten. Sie kommen mithilfe der KI zum Schluss: Jakobus Onnen ist mit knapp 99 % Sicherheit der Täter.</p>
+
+                <p>Dieses Forschungsbeispiel zeigt deutlich, wie KI die Geschichtswissenschaft bereichern kann. Das Abgleichen von großen Datenmengen können einzelne Forschende kaum allein bewältigen. KI kann somit als „unterstützendes Element“ dienen, das den historischen Horizont erweitern kann.</p>
+
+                <hr style="margin: 30px 0; border: 0; border-top: 1px solid #ddd;">
+
+                <p><strong>Weiterführende Beiträge:</strong></p>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 10px;"><a href="https://www.spiegel.de/panorama/holocaust-wie-ki-half-diesen-moerder-von-berdytschiw-zu-identifizieren-a-56269918-58d3-4884-b240-e20bca93011d" target="_blank" style="color: var(--accent); text-decoration: underline;">Spiegel: Wie KI half, diesen Mörder zu identifizieren</a></li>
+                    <li style="margin-bottom: 10px;"><a href="https://www.ndr.de/nachrichten/niedersachsen/oldenburg_ostfriesland/nazi-verbrechen-wie-ki-eine-ostfriesische-kleinstadt-veraendert-weener,kriegsverbrecher-100.html" target="_blank" style="color: var(--accent); text-decoration: underline;">NDR: Wie KI eine ostfriesische Kleinstadt verändert</a></li>
+                    <li style="margin-bottom: 10px;"><a href="https://www.dw.com/de/foto-holocaust-nazi-m%C3%B6rder-identifiziert-nationalsozialisten-ukraine-v2/a-74313823" target="_blank" style="color: var(--accent); text-decoration: underline;">DW: Nazi-Mörder identifiziert</a></li>
+                </ul>
+
+                <p><strong>Zur Funktionsweise digitaler Gesichtserkennung:</strong></p>
+                <ul style="list-style: none; padding: 0;">
+                    <li><a href="https://akademie.dw.com/de/analyse-so-nutzen-ukrainische-medienh%C3%A4user-k%C3%BCnstliche-intelligenz/a-74008753" target="_blank" style="color: var(--accent); text-decoration: underline;">DW Akademie: Analyse KI-Nutzung</a></li>
+                </ul>
+            `
+        };
+
         function openDeepDive(title, content) {
             modalTitle.innerText = title;
-            modalContent.innerText = content;
+            // Änderung zu innerHTML, damit Links und Absätze funktionieren
+            modalContent.innerHTML = content;
             modalOverlay.style.display = 'flex';
             gsap.to(modalOverlay, { opacity: 1, duration: 0.3 });
             document.body.style.overflow = 'hidden'; 
@@ -960,7 +993,10 @@ User: "Sei ein Experte auf dem Gebiet des Programmierens und übernimm das Vibe-
         document.querySelectorAll('.btn-deep-dive').forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                openDeepDive(btn.getAttribute('data-title'), btn.getAttribute('data-content'));
+                // Prüfen, ob ein Data-Key existiert (für langen Inhalt), sonst Fallback auf Attribut
+                const key = btn.getAttribute('data-key');
+                const content = key && deepDiveContents[key] ? deepDiveContents[key] : btn.getAttribute('data-content');
+                openDeepDive(btn.getAttribute('data-title'), content);
             });
         });
 
