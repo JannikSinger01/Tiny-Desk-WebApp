@@ -362,6 +362,20 @@
             padding: 0 10%;
         }
 
+        /* --- Vergrößerte Typografie für Kapitel 3 Intro --- */
+        .story-header h2 {
+            font-size: clamp(3rem, 6vw, 4.5rem); 
+            margin-top: 20px;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+        
+        .story-header p {
+            font-size: clamp(1.3rem, 2vw, 1.8rem); 
+            color: var(--accent);
+            max-width: 900px;
+        }
+
         .story-container {
             display: flex;
             position: relative;
@@ -408,14 +422,33 @@
             padding: 0 5%;
         }
 
+        /* --- STORY STEP ANPASSUNG FÜR LÄNGERES SCROLLEN --- */
         .story-step {
-            height: 100vh;
+            /* Mindesthöhe statt fester Höhe, damit Inhalt wachsen kann */
+            min-height: 100vh; 
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 20px 0;
+            /* Mehr Padding und Margin für "längeres Scrollen" */
+            padding: 100px 0; 
+            margin-bottom: 40vh; /* Sorgt für großen Abstand zwischen den Punkten */
             opacity: 0.3;
             transition: opacity 0.5s ease;
+        }
+
+        /* --- NEU: Titel Anpassung (etwas kleiner, keine doppelte Linie) --- */
+        .story-step h3 {
+            font-size: clamp(2rem, 4vw, 2.8rem); /* Etwas reduziert */
+            margin-bottom: 20px; /* Normaler Abstand zum <hr> */
+            line-height: 1.2;
+            /* Border entfernt, damit nur das HTML <hr> sichtbar ist */
+            border-bottom: none; 
+            padding-bottom: 0;
+            display: block;
+        }
+
+        .story-step p {
+            margin-bottom: 1.5rem; /* Abstand zwischen Absätzen */
         }
 
         .story-step.active {
@@ -870,7 +903,7 @@
                 <span class="slide-meta">Kapitel III: Vibe-Coding</span>
                 <h2>Wie entsteht eine Web-App?</h2>
                 <hr>
-                <p>Ein chronologischer Entwicklungsbericht</p>
+                <p>Ein chronologischer Entwicklungsbericht dieser Web-App als exemplarisches Beispiel.</p>
             </div>
 
             <div class="story-container">
@@ -882,35 +915,54 @@
                 </div>
 
                 <div class="story-content">
+                    
+                    <!-- Schritt 1: Der erste Prompt (Erweitert) -->
                     <div class="story-step" data-image="images/ersterprompt.png" data-caption="Der 'Startschuss' dieser Web-App">
                         <h3>Der erste Prompt</h3>
                         <hr>
-                        <p>Der erste Schritt zu einer Web-App mithilfe von Vibe-Coding besteht im ersten Prompt. Prompts sind in Wörtern ausformulierte Befehle, die man der KI übermittelt, um seine Ideen von der KI in einen Code umsetzen zu lassen. Bei einem guten Prompt muss man 5 Dinge beachten:<br>Die KI sollte ihre Rolle (Experte) und ihre Aufgabe kennen (Vibe-Coding), sowohl Kontext (Ausformulierung der Idee) zur Verfügung gestellt, als auch das Format (erster Entwurf der Web-App) und eine Einschränkung/Limit (genaue Beschreibung der Idee, kein offen gestellter Befehl) vorgegeben bekommen.</p>
+                        <p>Der erste Schritt zu einer Web-App mithilfe von Vibe-Coding besteht im ersten Prompt. Prompts sind in Wörtern ausformulierte Befehle, die man der KI übermittelt, um seine Ideen von der KI in einen Code umsetzen zu lassen.</p>
+                        
+                        <p>Bei einem guten Prompt muss man 5 Dinge beachten: Die KI sollte ihre Rolle (Experte) und ihre Aufgabe kennen (Vibe-Coding), sowohl Kontext (Ausformulierung der Idee) zur Verfügung gestellt, als auch das Format (erster Entwurf der Web-App) und eine Einschränkung/Limit (genaue Beschreibung der Idee, kein offen gestellter Befehl) vorgegeben bekommen.</p>
+                        
+                        <p>Bei dieser Web-App haben wir die KI nur Codes im HTML-Format generieren lassen. Das HTML-Format bietet eine einsteigerfreundliche und simple Möglichkeit, die erste Web-App zu gestalten. Dort kann man Verlinkungen für Bilder oder einfache Platzhalter zur Übersicht im Code verwenden, um auch ohne Programmierkenntnisse den Überblick behalten zu können.</p>
+
                         <div class="code-snippet">
 User: "Sei ein Experte auf dem Gebiet des Programmierens und übernimm das Vibe-coden für mich..."
                         </div>
                     </div>
 
+                    <!-- Schritt 2: Testen & Iteration (Formatierung) -->
                     <div class="story-step" data-image="images/fehler.png" data-caption="Die KI ist nicht unfehlbar und manchmal launisch">
                         <h3>Testen & Iteration</h3>
                         <hr>
-                        <p>Nach dem ersten Prompt steht im besten Falle schon eine funktionierende Web-App. Jedoch ist die erste Version nicht das erwünschte Endergebnis. So tritt die Phase des Testens ein, bei der man Stück für Stück seine Web-App weiterentwickelt und die eingegebenen Prompts stets verbessert und spezifiziert.<br><br>
-                        Die KI macht jedoch noch viele Fehler, häufig aus Bequemlichkeitsgründen. Dabei möchte die KI mit minimalem Ressourcenaufwand einen maximal zufriedenstellen. Daher kann es vorkommen, dass die KI Ihnen  „vorgaukelt“ ihre Prompts gründlich zu bearbeiten, sie aber insgeheim große Abkürzung nimmt und die Arbeit schlecht ausführt.<br><br>
-                        Mit der Zeit bekommt man ein Gefühl im Umgang mit KI. Welche meiner Befehle führen zur Verwirrung? Welche Formulierungen sind besonders erfolgreich gewesen? Wie muss ich meinen Prompt formulieren, damit die KI mich nicht austricksen kann?</p>
+                        <p>Nach dem ersten Prompt steht im besten Falle schon eine funktionierende Web-App. Jedoch ist die erste Version nicht das erwünschte Endergebnis. So tritt die Phase des Testens ein, bei der man Stück für Stück seine Web-App weiterentwickelt und die eingegebenen Prompts stets verbessert und spezifiziert.</p>
+                        
+                        <p>Die KI macht jedoch noch viele Fehler, häufig aus Bequemlichkeitsgründen. Dabei möchte die KI mit minimalem Ressourcenaufwand einen maximal zufriedenstellen. Daher kann es vorkommen, dass die KI Ihnen „vorgaukelt“ ihre Prompts gründlich zu bearbeiten, sie aber insgeheim große Abkürzung nimmt und die Arbeit schlecht ausführt.</p>
+                        
+                        <p>Mit der Zeit bekommt man ein Gefühl im Umgang mit KI. Welche meiner Befehle führen zur Verwirrung? Welche Formulierungen sind besonders erfolgreich gewesen? Wie muss ich meinen Prompt formulieren, damit die KI mich nicht austricksen kann?</p>
                     </div>
 
+                    <!-- Schritt 3: GitHub (Formatierung) -->
                     <div class="story-step" data-image="images/github.png" data-caption="Screenshot von GitHub">
                         <h3>Die "Technik" hinter der Web-App</h3>
                         <hr>
-                        <p>Wenn Sie mit Ihrer Web-App zufrieden und fertig sind und Ihr Ziel erreicht haben, müssen Sie die Web-App noch in die Welt tragen, damit andere Ihre Arbeit auch sehen können. Wie das Veröffentlichen funktioniert, wird an dieser Web-App  einmal exemplarisch gezeigt. Dabei ist aber wichtig zu erwähnen, dass die verwendete Methode nicht die einzige mögliche Methode, sondern eine von vielen ist.<br>
-                        Zunächst laden Sie Ihren Code der Web-App auf GitHub hoch. Falls Sie noch Bilder oder andere Medien verwenden möchten, können Sie diese in einer Ordnerstruktur ebenfalls in GitHub hochladen. GitHub funktioniert hierbei in etwa wie das „Gehirn“ der Web-App. Alles, was Sie in Ihrer Web-App zeigen und darstellen möchten, muss hierbei in GitHub hochgeladen werden, sodass der zentrale Code der Web-App darauf zugreifen und es darstellen kann. <br>
-                        Dann müssen Sie die Web-App online schalten. Dabei kann man auf Webseiten wie Netlify zurückgreifen, die sich mit GitHub verbinden und dann auf die Web-Apps zugreifen können. Dann erstellt Ihnen die Webseite eine URL und Ihre Web-App ist online!</p>
+                        <p>Wenn Sie mit Ihrer Web-App zufrieden und fertig sind und Ihr Ziel erreicht haben, müssen Sie die Web-App noch in die Welt tragen, damit andere Ihre Arbeit auch sehen können. Wie das Veröffentlichen funktioniert, wird an dieser Web-App einmal exemplarisch gezeigt. Dabei ist aber wichtig zu erwähnen, dass die verwendete Methode nicht die einzige mögliche Methode, sondern eine von vielen ist.</p>
+                        
+                        <p>Zunächst laden Sie Ihren Code der Web-App auf GitHub hoch. Falls Sie noch Bilder oder andere Medien verwenden möchten, können Sie diese in einer Ordnerstruktur ebenfalls in GitHub hochladen. GitHub funktioniert hierbei in etwa wie das „Gehirn“ der Web-App. Alles, was Sie in Ihrer Web-App zeigen und darstellen möchten, muss hierbei in GitHub hochgeladen werden, sodass der zentrale Code der Web-App darauf zugreifen und es darstellen kann.</p>
+                        
+                        <p>Dann müssen Sie die Web-App online schalten. Dabei kann man auf Webseiten wie Netlify zurückgreifen, die sich mit GitHub verbinden und dann auf die Web-Apps zugreifen können. Dann erstellt Ihnen die Webseite eine URL und Ihre Web-App ist online!</p>
                     </div>
 
+                    <!-- Schritt 4: Endergebnis (Formatierung) -->
                     <div class="story-step" data-image="images/ende.png" data-caption="Finales Ergebnis">
                         <h3>Das Endergebnis</h3>
                         <hr>
-                        <p>Glückwunsch, Ihre Web-App ist fertig und veröffentlicht! <br>Auch wenn es am Anfang sehr komplex und nach Raketenwissenschaft aussieht, ist es am Ende nicht ganz so dramatisch. Der beste Tipp beim Vibe-Coden: einfach ausprobieren. Wenn man nicht mehr weiterweiß, kann man sich an die KI wenden und um Rat bitten. <br>Gerade am Anfang heißt es: Der Weg ist das Ziel. Probieren Sie sich einfach mal aus, prompten Sie drauflos und testen Sie, wie weit Sie kommen. Das Lernpotential ist immens, und wenn man sich ein wenig zurechtgefunden hat, kommt man jedes Mal ein Stückchen weiter, bis man dann auf neue Probleme stößt. <br>Aber je mehr man sich mit dem Thema beschäftigt, desto größer werden die Gestaltungsmöglichkeiten und desto größer wird der Mehrwert.</p>
+                        <p>Glückwunsch, Ihre Web-App ist fertig und veröffentlicht! Auch wenn es am Anfang sehr komplex und nach Raketenwissenschaft aussieht, ist es am Ende nicht ganz so dramatisch. Der beste Tipp beim Vibe-Coden: einfach ausprobieren. Wenn man nicht mehr weiterweiß, kann man sich an die KI wenden und um Rat bitten.</p>
+                        
+                        <p>Gerade am Anfang heißt es: Der Weg ist das Ziel. Probieren Sie sich einfach mal aus, prompten Sie drauflos und testen Sie, wie weit Sie kommen. Das Lernpotential ist immens, und wenn man sich ein wenig zurechtgefunden hat, kommt man jedes Mal ein Stückchen weiter, bis man dann auf neue Probleme stößt.</p>
+                        
+                        <p>Aber je mehr man sich mit dem Thema beschäftigt, desto größer werden die Gestaltungsmöglichkeiten und desto größer wird der Mehrwert.</p>
+                        
                         <button class="start-btn" onclick="window.scrollTo({top:0, behavior:'smooth'})">Zurück zum Start</button>
                     </div>
                 </div>
